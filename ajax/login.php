@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $return = [];
 
     if (!empty($_POST['email']) || !empty($_POST['password'])) {
-        $email = Filter::String( $_POST['email'] );
+        $email = Filter::String($_POST['email']);
         $password = $_POST['password'];
 
         $user_found = User::findEmail($email, true);
@@ -19,24 +19,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if (password_verify($password, $hash)) { // user is signed in. set session and redirect
                 $return['redirect'] = '/dashboard';
                 $_SESSION['user_id'] = $user_id;
-            }
-            else {
+            } else {
                 $return['error'] = "Your email and/or password is incorrect"; // invalid user email/password combo
             }
-
-        }
-        else {
+        } else {
             // they need to create a new account
             $return['error'] = "You do not have an account. <a href='/register.php'>Create one now?</a>";
         }
-    }
-    else {
+    } else {
         $return['error'] = 'Please make sure all of the fields are filled in';
     }
 
     echo json_encode($return, JSON_PRETTY_PRINT);
     exit;
-}
-else {
-	exit('Invalid URL');
+} else {
+    exit('Invalid URL');
 }
