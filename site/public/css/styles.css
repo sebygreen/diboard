@@ -1,8 +1,7 @@
 /*general styles & reset*/
 * {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-        Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
-        "Segoe UI Symbol";
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
+        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     margin: 0;
@@ -47,15 +46,13 @@ a {
     padding: 14px 28px;
     border-radius: 8px;
     text-decoration: none;
-    box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0),
-        0px 5px 10px 0px rgba(0, 0, 0, 0);
+    box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0), 0px 5px 10px 0px rgba(0, 0, 0, 0);
     transition-duration: 300ms;
 }
 
 .button:hover {
     transform: scale(1.05);
-    box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.1),
-        0px 5px 10px 0px rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.1), 0px 5px 10px 0px rgba(0, 0, 0, 0.1);
 }
 
 /*icon button*/
@@ -69,15 +66,13 @@ a {
     text-decoration: none;
     background-color: rgba(40, 40, 40, 1);
     color: rgba(255, 255, 255, 1);
-    box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0),
-        0px 5px 10px 0px rgba(0, 0, 0, 0);
+    box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0), 0px 5px 10px 0px rgba(0, 0, 0, 0);
     transition-duration: 300ms;
 }
 
 .icon:hover {
     transform: scale(1.05);
-    box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.05),
-        0px 5px 10px 0px rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.05), 0px 5px 10px 0px rgba(0, 0, 0, 0.1);
 }
 
 /*landing page*/
@@ -172,7 +167,7 @@ form .preview {
 form .preview .wrapper {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-end;
 }
 
 form .preview .showcase {
@@ -215,8 +210,7 @@ form .input textarea {
     color: rgba(255, 255, 255, 1);
     padding: 14px 18px;
     border-radius: 8px;
-    box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0),
-        0px 5px 10px 0px rgba(0, 0, 0, 0);
+    box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0), 0px 5px 10px 0px rgba(0, 0, 0, 0);
     transition-duration: 300ms;
 }
 
@@ -228,8 +222,7 @@ form .input textarea::placeholder {
 form .input input:focus,
 form .input textarea:focus {
     transform: scale(1.01);
-    box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.05),
-        0px 5px 10px 0px rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.05), 0px 5px 10px 0px rgba(0, 0, 0, 0.1);
 }
 
 form .form-error {
@@ -248,7 +241,7 @@ form .form-tooltip {
     margin: 5px 0 0 0;
 }
 
-/* ===== dashboard ===== */
+/* dashboard */
 #dashboard-container {
     height: 100vh;
     display: grid;
@@ -301,7 +294,7 @@ form .form-tooltip {
     display: flex;
     align-items: center;
     padding: 25px;
-    background-color: rgba(30, 30, 30, 0.6);
+    background-color: rgba(20, 20, 20, 0.6);
     backdrop-filter: blur(15px);
 }
 

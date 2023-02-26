@@ -1,11 +1,10 @@
 <?php
-
 const __CONFIG__ = true;
 require_once "../inc/config.php";
 
 $User = new User($_SESSION["user_id"]);
 
-$valid_extension = ["jpeg", "jpg", "png", "gif", "bmp"]; // authorised formats
+$valid_extension = ["jpeg", "jpg", "png", "webp", "gif", "bmp"]; // authorised formats
 $upload_path = "../storage/thumbnails/"; // file content gets saved here
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -19,12 +18,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $image_extension = strtolower(
                 pathinfo($thumbnail, PATHINFO_EXTENSION)
             );
-            $final_thumbnail = rand(1000, 1000000) . $thumbnail; // generate a number and append it to the image name so that the same file can be used multiple times
+            $filename = rand(1000, 1000000) . "." . $image_extension; // generate a number and append it to the image name so that the same file can be used multiple times
 
             if (in_array($image_extension, $valid_extension)) {
                 // extension validation
                 if ($_FILES["thumbnail"]["size"] < 1000000) {
-                    $upload_path = $upload_path . strtolower($final_thumbnail); // final upload path
+                    $upload_path = $upload_path . $filename; // final upload path
 
                     if (
                         move_uploaded_file($temporary_thumbnail, $upload_path)
