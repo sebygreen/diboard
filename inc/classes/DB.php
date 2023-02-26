@@ -11,7 +11,7 @@ class DB
     private function __construct()
     { // called when new $db is executed
         try {
-            self::$sql_connection = new PDO('mysql:charset=utf8mb4;host=localhost;port=3306;dbname=diboard_db', 'root', '8809');
+            self::$sql_connection = new PDO('mysql:charset=utf8mb4;host=mariadb;port=3306;dbname=diboard_db', 'root', 'root');
             self::$sql_connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             self::$sql_connection->setAttribute(PDO::ATTR_PERSISTENT, false);
         } catch (PDOException $e) {
