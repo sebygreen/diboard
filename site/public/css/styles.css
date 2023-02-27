@@ -176,7 +176,7 @@ form .preview .showcase {
     height: 120px;
     width: 160px;
     background-repeat: no-repeat;
-    background-size: cover 80%;
+    background-size: contain;
     background-position: center;
     border-radius: 8px;
     background-color: #292929;
@@ -213,6 +213,7 @@ form .input textarea {
     border-radius: 8px;
     box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0), 0px 5px 10px 0px rgba(0, 0, 0, 0);
     transition-duration: 300ms;
+    white-space: pre-wrap;
 }
 
 form .input input::placeholder,
@@ -267,15 +268,8 @@ form .form-tooltip {
     opacity: 0.2;
 }
 
-#side-bar .button-logout {
-    background-color: #52297b;
-    color: #ffffff;
-    height: 40px;
-    width: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 4px;
+#side-bar #logout {
+    background-color: rgba(82, 41, 123, 1);
 }
 
 /*main content*/
@@ -308,7 +302,7 @@ form .form-tooltip {
 #posts-grid {
     padding: 0 25px 25px 25px;
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     grid-template-rows: masonry;
     gap: 10px;
 }
@@ -390,12 +384,14 @@ form .form-tooltip {
 }
 
 #posts-container .post .thumbnail {
-    height: 175px;
-    width: 100%;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: contain;
+    position: relative;
     margin: 0 0 20px 0;
+}
+
+#posts-container .post .thumbnail img {
+    height: auto;
+    width: 100%;
+    border-radius: 4px;
 }
 
 #posts-container .post .text {
@@ -420,9 +416,9 @@ form .form-tooltip {
 }
 
 #activity-bar h2 {
-    font-size: 24px;
-    font-weight: 200;
+    font-size: 28px;
     color: rgba(255, 255, 255, 1);
+    margin: 0 20px 0 0;
 }
 
 #participant-list {

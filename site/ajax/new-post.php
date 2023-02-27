@@ -24,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 // file size validation (4mb hard limit)
                 if ($_FILES["thumbnail"]["size"] < 4000000) {
                     $tmp = $_FILES["thumbnail"]["tmp_name"]; // temporary location where the file is being kept
-                    $filename = Uuid::uuid4() . "_" . Uuid::fromDateTime(DateTime()) . "." . $extension; // uuid plus extension to create filename
+                    $filename = Uuid::uuid4() . "_" . Uuid::fromDateTime(date_create()) . "." . $extension; // uuid plus extension to create filename
                     $upload_path = "../storage/thumbnails/" . $filename; // final upload path
                     $database_path = "storage/thumbnails/" . $filename; // final database path
                     // copy file to storage on filesystem

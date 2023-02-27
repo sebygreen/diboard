@@ -19,7 +19,7 @@ $User = new User($_SESSION["user_id"]);
         <!-- sidebar -->
         <div id="side-bar">
             <img src="public/assets/images/logo-white.png" alt="diboard logo" />
-            <a class="button-logout" href="/logout">
+            <a id="logout" class="icon" href="/logout">
                 <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-power" viewBox="0 0 16 16">
                     <path d="M7.5 1v7h1V1h-1z" />
                     <path d="M3 8.812a4.999 4.999 0 0 1 2.578-4.375l-.485-.874A6 6 0 1 0 11 3.616l-.501.865A5 5 0 1 1 3 8.812z" />
@@ -59,7 +59,9 @@ $User = new User($_SESSION["user_id"]);
                     ) { ?>
                         <div class="post">
                             <?php if ($row["thumbnail"] !== null) { ?>
-                                <div class="thumbnail" style="background-image: url('<?= $row["thumbnail"] ?>')"></div>
+                                <div class="thumbnail">
+                                    <img src="<?= $row["thumbnail"] ?>" alt="Post image">
+                                </div>
                             <?php } ?>
                             <div class="text">
                                 <h2><?= $row["title"] ?></h2>
