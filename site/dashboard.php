@@ -15,29 +15,28 @@ $User = new User($_SESSION["user_id"]);
 </head>
 
 <body>
-    <div id="dashboard-container">
+    <div id="dashboard">
         <!-- sidebar -->
-        <div id="side-bar">
+        <section id="sidebar">
             <img src="public/assets/images/logo-white.png" alt="diboard logo" />
             <a id="logout" class="icon" href="/logout">
-                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-power" viewBox="0 0 16 16">
-                    <path d="M7.5 1v7h1V1h-1z" />
-                    <path d="M3 8.812a4.999 4.999 0 0 1 2.578-4.375l-.485-.874A6 6 0 1 0 11 3.616l-.501.865A5 5 0 1 1 3 8.812z" />
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M5.636 5.636a9 9 0 1012.728 0M12 3v9" />
                 </svg>
             </a>
-        </div>
+        </section>
         <!-- main content -->
         <div id="main">
-            <div id="posts-container">
-                <div id="title-bar">
+            <section id="posts">
+                <div id="titlebar">
                     <h2>Dashboard</h2>
                     <a href="/new-post" class="icon" id="new-post">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
-                            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                         </svg>
                     </a>
                 </div>
-                <div id="posts-grid">
+                <div id="grid">
                     <?php foreach (
                         $sql_connection->query(
                             'SELECT
@@ -67,8 +66,7 @@ $User = new User($_SESSION["user_id"]);
                                 <h2><?= $row["title"] ?></h2>
                                 <p><?= nl2br(Filter::Link($row["content"])) ?></p>
                             </div>
-
-                            <div class="controls-signature-container">
+                            <div class="controls">
                                 <div class="signature">
                                     <p class="timestamp"><?= $row["formatted_pub_time"] ?></p>
                                     <span>&bull;</span>
@@ -77,18 +75,17 @@ $User = new User($_SESSION["user_id"]);
                                         <p class="edited">Edited</p>
                                     <?php } ?>
                                 </div>
-
                                 <?php if ($row["user_id"] == $User->user_id) { ?>
                                     <!-- edit and delete buttons only show on the logged in user's posts -->
-                                    <div class="controls">
-                                        <a class="delete" href="/delete-post?id=<?= $row["id"] ?>">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
-                                                <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
+                                    <div class="buttons">
+                                        <a class="icon delete" href="/delete-post?id=<?= $row["id"] ?>">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                              <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
                                             </svg>
                                         </a>
-                                        <a class="edit" href="/edit-post?id=<?= $row["id"] ?>">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-pen-fill" viewBox="0 0 16 16">
-                                                <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001z" />
+                                        <a class="icon edit" href="/edit-post?id=<?= $row["id"] ?>">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                              <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" />
                                             </svg>
                                         </a>
                                     </div>
@@ -97,10 +94,10 @@ $User = new User($_SESSION["user_id"]);
                         </div>
                     <?php } ?>
                 </div>
-            </div>
+            </section>
         </div>
         <!-- friends -->
-        <div id="activity-bar">
+        <section id="activity-bar">
             <h2>Participants</h2>
             <div id="participant-list">
                 <?php foreach (
@@ -126,7 +123,7 @@ $User = new User($_SESSION["user_id"]);
                     </div>
                 <?php } ?>
             </div>
-        </div>
+        </section>
     </div>
     <?php require_once "inc/footer.php"; ?>
 </body>

@@ -62,10 +62,13 @@ a {
     width: 40px;
     border-radius: 8px;
     text-decoration: none;
-    background-color: rgba(40, 40, 40, 1);
-    color: rgba(255, 255, 255, 1);
     box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0), 0px 5px 10px 0px rgba(0, 0, 0, 0);
     transition-duration: 300ms;
+}
+
+.icon svg {
+    height: 20px;
+    width: auto;
 }
 
 .icon:hover {
@@ -73,7 +76,7 @@ a {
     box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.05), 0px 5px 10px 0px rgba(0, 0, 0, 0.1);
 }
 
-/*landing page*/
+/*index page*/
 #landing {
     text-align: center;
     margin: auto;
@@ -130,6 +133,11 @@ form {
     padding: 40px;
 }
 
+form #back {
+    background-color: rgba(40, 40, 40, 1);
+    color: rgba(255, 255, 255, 1);
+}
+
 form .titlebar {
     display: flex;
     align-items: center;
@@ -180,7 +188,7 @@ form .preview .showcase {
     background-position: center;
     border-radius: 8px;
     background-color: #292929;
-    border: 2px solid rgba(255, 255, 255, 0.4);
+    border: 2px solid rgba(255, 255, 255, 0.2);
 }
 
 form input[type="file"] {
@@ -227,49 +235,51 @@ form .input textarea:focus {
     box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.05), 0px 5px 10px 0px rgba(0, 0, 0, 0.1);
 }
 
-form .form-error {
-    color: rgba(202, 65, 46, 1);
-    margin: 15px 0 0 0;
-}
-
 form #submit {
     background-color: rgba(82, 41, 123, 1);
     color: rgba(255, 255, 255, 1);
 }
 
-form .form-tooltip {
+form .error {
+    color: rgba(202, 65, 46, 1);
+    margin: 15px 0 0 0;
+}
+
+form .tooltip {
     font-size: 11px;
     color: grey;
     margin: 5px 0 0 0;
 }
 
 /* dashboard */
-#dashboard-container {
+#dashboard {
     height: 100vh;
+    width: 100%;
     display: grid;
     grid-template-columns: min-content 1fr min-content;
     grid-template-rows: 1fr;
-    gap: 0 0;
+    gap: 0;
 }
 
-/*side bar*/
-#side-bar {
+/*sidebar*/
+#sidebar {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
     padding: 25px;
-    background-color: rebeccapurple;
+    background-color: rgba(40, 40, 40, 1);
 }
 
-#side-bar img {
+#sidebar img {
     height: 50px;
     width: 50px;
     opacity: 0.2;
 }
 
-#side-bar #logout {
+#sidebar #logout {
     background-color: rgba(82, 41, 123, 1);
+    color: rgba(255, 255, 255, 1);
 }
 
 /*main content*/
@@ -277,13 +287,13 @@ form .form-tooltip {
     overflow-x: auto;
 }
 
-#posts-container {
+#grid {
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: min-content 1fr;
 }
 
-#title-bar {
+#titlebar {
     position: sticky;
     top: 0;
     display: flex;
@@ -293,13 +303,19 @@ form .form-tooltip {
     backdrop-filter: blur(15px);
 }
 
-#title-bar h2 {
+#titlebar h2 {
     font-size: 28px;
     color: rgba(255, 255, 255, 1);
     margin: 0 20px 0 0;
 }
 
-#posts-grid {
+#titlebar #new-post {
+    background-color: rgba(40, 40, 40, 1);
+    color: rgba(255, 255, 255, 1);
+}
+
+/*main grid*/
+#grid {
     padding: 0 25px 25px 25px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -307,109 +323,95 @@ form .form-tooltip {
     gap: 10px;
 }
 
-#posts-container .post {
+/*post*/
+#grid .post {
     padding: 20px;
-    background-color: #292929;
-    border-radius: 8px;
+    background-color: rgba(40, 40, 40, 1);
+    border-radius: 16px;
     box-sizing: border-box;
     height: auto;
 }
 
-#posts-container .post .input-signature-container {
+#grid .post .controls {
     display: flex;
     justify-content: space-between;
-    align-items: baseline;
+    align-items: flex-end;
 }
 
-#posts-container .post .input-signature-container .signature {
+#grid .post .controls .signature {
     display: flex;
     align-items: baseline;
 }
 
-#posts-container .post .input-signature-container .signature .timestamp {
-    font-size: 12px;
+#grid .post .controls .signature .timestamp {
+    font-size: 14px;
     font-weight: bold;
     color: rgba(255, 255, 255, 1);
 }
 
-#posts-container .post .input-signature-container .signature span {
+#grid .post .controls .signature span {
     color: rgba(255, 255, 255, 0.2);
     margin: 0 5px;
 }
 
-#posts-container .post .input-signature-container .signature .author {
-    font-size: 12px;
-    color: rgba(255, 255, 255, 0.5);
+#grid .post .controls .signature .author {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.4);
 }
 
-#posts-container .post .input-signature-container .input {
+#grid .post .controls .buttons {
     display: flex;
 }
 
-#posts-container .post .input-signature-container .input .delete {
-    background-color: #393939;
-    color: rgba(255, 255, 255, 0.6);
-    height: 25px;
-    width: 25px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 4px;
-    border: none;
-    outline: none;
-    margin: 0 5px 0 0;
+#grid .post .controls .buttons .delete {
+    background-color: rgba(202, 65, 46, 1);
+    color: rgba(255, 255, 255, 1);
+    margin: 0 10px 0 0;
 }
 
-#posts-container .post .input-signature-container .input .edit {
-    background-color: #393939;
-    color: rgba(255, 255, 255, 0.6);
-    height: 25px;
-    width: 25px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 4px;
+#grid .post .controls .buttons .edit {
+    background-color: rgba(60, 60, 60, 1);
+    color: rgba(255, 255, 255, 1);
 }
 
-.edited {
-    font-size: 11px;
-    text-transform: uppercase;
-    font-weight: 600;
-    display: inline-block;
-    background-color: #1e1e1e;
-    color: grey;
-    padding: 2px 5px;
-    border-radius: 2px;
-    margin: 0 0 0 5px;
-}
-
-#posts-container .post .thumbnail {
-    position: relative;
+#grid .post .thumbnail {
     margin: 0 0 20px 0;
 }
 
-#posts-container .post .thumbnail img {
+#grid .post .thumbnail img {
     height: auto;
     width: 100%;
-    border-radius: 4px;
+    border-radius: 8px;
 }
 
-#posts-container .post .text {
+#grid .post .text {
     margin: 0 0 20px 0;
 }
 
-#posts-container .post .text h2 {
-    font-size: 24px;
+#grid .post .text h2 {
+    font-size: 28px;
     color: rgba(255, 255, 255, 1);
     margin: 0 0 10px 0;
 }
 
-#posts-container .post .text p {
+#grid .post .text p {
     font-size: 16px;
-    color: grey;
+    color: rgba(255, 255, 255, 0.6);
 }
 
-/*activity-list*/
+.edited {
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: 600;
+    display: inline-block;
+    background-color: rgba(20, 20, 20, 1);
+    color: rgba(255, 255, 255, 0.4);
+    padding: 2px 5px;
+    border-radius: 4px;
+    margin: 0 0 0 5px;
+}
+
+/*users list*/
 #activity-bar {
     padding: 25px;
     background-color: #292929;
