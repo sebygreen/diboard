@@ -16,14 +16,6 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Current Database: `diboard_db`
---
-
-CREATE DATABASE /*!32312 IF NOT EXISTS*/ `diboard_db` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
-
-USE `diboard_db`;
-
---
 -- Table structure for table `posts`
 --
 
@@ -50,12 +42,6 @@ CREATE TABLE `posts` (
 
 LOCK TABLES `posts` WRITE;
 /*!40000 ALTER TABLE `posts` DISABLE KEYS */;
-INSERT INTO `posts` VALUES
-(1,NULL,'First post on diboard!','heard from some friends that this new platform was gonna pop off soon\r\n\r\ngood stuff!\r\n\r\n😁\r\n\r\nEDIT: now with cool but out of order masonry\r\n\r\nEDIT 2: edits working nicely tho','2023-02-25 11:48:55',1,1),
-(2,'storage/thumbnails/649897screenshot 2019-12-01 18.14.49.png','MathLab exercise','https://mlm.pearson.com/northamerica/mymathlab/','2023-02-25 11:53:22',0,2),
-(3,NULL,'new masonry for the dashboard','read more here: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout/Masonry_Layout','2023-02-25 12:25:19',0,2),
-(4,'storage/thumbnails/917031corex.jpg','Razer Core X for sale','don&#039;t need it any more\r\n\r\noriginal packaging,\r\nextra USBC 5m cable because the included one is stupid small,\r\ncleaned and dust free\r\n\r\n500$, slightly negotiable\r\nciao!','2023-02-25 12:30:46',0,1),
-(6,'../storage/thumbnails/4692189d3b3960-198f-4a09-9090-3d12812ccf5e_1_201_a.jpeg','strike over!','wooooo','2023-02-26 11:50:00',0,1);
 /*!40000 ALTER TABLE `posts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -75,7 +61,7 @@ CREATE TABLE `users` (
   `avatar` varchar(255) NOT NULL COMMENT 'User''s avatar',
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='users table';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='users table';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -85,8 +71,7 @@ CREATE TABLE `users` (
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` VALUES
-(1,'Dyrsin','sebygreen@gmail.com','$2y$10$ExcmEfA/DLpN2/BuykGDr..hCGEQd.0SfzVHEGYZe97i6sh6r.2Gm','2023-02-25 11:41:28','storage/avatars/310244blini cat.jpg'),
-(2,'thedarkstorm','storm@gmail.com','$2y$10$gAJHmGlgLftwoW2V7PJMcurp45EEJ/q9OoZCZ4P4fdVUX91CCdlM.','2023-02-25 11:52:24','storage/avatars/365172logo_discord_text.png');
+(1,'Dyrsin','sebygreen@gmail.com','$2y$10$1Q48AsBwVKmhBnR.pIDFlepjULRR3rrqyOLLNJyTHasvzc3NrMydW','2023-02-27 15:45:37','../storage/avatars/179659blini cat.jpg');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -99,4 +84,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-02-26 17:57:57
+-- Dump completed on 2023-02-27 16:10:03

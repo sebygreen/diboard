@@ -1,21 +1,20 @@
 <?php
 const __CONFIG__ = true;
 require_once "inc/config.php";
-
+// redirect if not logged in
 Page::redirectToLogin();
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <?php require_once "inc/head.php"; ?>
-    <title>diboard | Login</title>
+    <title>diboard | New post</title>
 </head>
 
 <body>
     <div class="content-container">
-        <form class="js-new-post">
+        <form class="js-new-post" enctype="multipart/form-data">
             <div class="titlebar">
                 <a class="icon" href="/dashboard">
                     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">

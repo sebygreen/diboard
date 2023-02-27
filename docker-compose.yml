@@ -8,7 +8,7 @@ services:
         networks:
             - internal
         ports:
-            - 8080:80
+            - 80:80
         links:
             - php-fpm
         volumes:
@@ -24,6 +24,7 @@ services:
             - internal
         volumes:
             - ./site:/var/www/html
+            - ./docker/php-fpm/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
         depends_on:
             - mariadb
     mariadb:

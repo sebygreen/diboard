@@ -32,10 +32,8 @@ a {
 /*login, register & landing page container*/
 .content-container {
     height: 100vh;
-    width: 100vw;
+    width: 100%;
     display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 /*components*/
@@ -78,6 +76,8 @@ a {
 /*landing page*/
 #landing {
     text-align: center;
+    margin: auto;
+    padding: 40px;
 }
 
 #landing img {
@@ -126,6 +126,8 @@ a {
 form {
     width: 100%;
     max-width: 480px;
+    margin: auto;
+    padding: 40px;
 }
 
 form .titlebar {
@@ -171,15 +173,14 @@ form .preview .wrapper {
 }
 
 form .preview .showcase {
-    height: 70px;
-    width: 70px;
+    height: 120px;
+    width: 160px;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: cover 80%;
     background-position: center;
     border-radius: 8px;
     background-color: #292929;
-    box-sizing: border-box;
-    border: 2px solid grey;
+    border: 2px solid rgba(255, 255, 255, 0.4);
 }
 
 form input[type="file"] {
@@ -301,24 +302,13 @@ form .form-tooltip {
 #title-bar h2 {
     font-size: 28px;
     color: rgba(255, 255, 255, 1);
-}
-
-#title-bar .new-post-button {
-    background-color: #292929;
-    color: rgba(255, 255, 255, 0.4);
-    height: 40px;
-    width: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 4px;
-    margin: 0 auto 0 20px;
+    margin: 0 20px 0 0;
 }
 
 #posts-grid {
     padding: 0 25px 25px 25px;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     grid-template-rows: masonry;
     gap: 10px;
 }
@@ -403,8 +393,8 @@ form .form-tooltip {
     height: 175px;
     width: 100%;
     background-position: center;
-    background-size: cover;
-    border-radius: 4px;
+    background-repeat: no-repeat;
+    background-size: contain;
     margin: 0 0 20px 0;
 }
 
