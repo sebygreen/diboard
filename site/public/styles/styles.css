@@ -314,10 +314,10 @@ form .tooltip {
     margin: 0 20px 0 0;
 }
 
-/*#titlebar #new-post {
-    background-color: rgba(40, 40, 40, 1);
+#titlebar #new-post {
+    background-color: rgba(44, 44, 44, 1);
     color: rgba(255, 255, 255, 1);
-}*/
+}
 
 /*main grid*/
 #grid {
@@ -415,31 +415,34 @@ form .tooltip {
 
 /*TODO: update activity list style names*/
 /*users list*/
-#activity-bar {
+#activity {
     padding: 25px;
 }
 
-#activity-bar h2 {
+#activity .titlebar {
+    display: flex;
+    gap: 40px;
+}
+
+#activity .titlebar h2 {
     font-size: 32px;
     font-weight: 600;
     color: rgba(255, 255, 255, 1);
-    margin: 0 20px 0 0;
 }
 
-#participant-list {
+#members {
     margin: 15px 0 0 0;
-    padding: 0 80px 0 0;
 }
 
-#participant-list .participant {
+#members .participant {
     display: flex;
 }
 
-#participant-list .participant:not(:last-child) {
+#members .participant:not(:last-child) {
     margin: 0 0 15px 0;
 }
 
-#participant-list .participant .avatar {
+#members .participant .avatar {
     height: 45px;
     width: 45px;
     border-radius: 50%;
@@ -447,20 +450,20 @@ form .tooltip {
     margin: 0 10px 0 0;
 }
 
-#participant-list .participant .text {
+#members .participant .text {
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
-#participant-list .participant .text p {
-    font-size: 11px;
-    color: rgba(255, 255, 255, 0.4);
+#members .participant .text p {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.6);
     min-width: 80px;
 }
 
-#participant-list .participant .text h5 {
-    font-size: 16px;
+#members .participant .text h5 {
+    font-size: 18px;
     font-weight: 600;
     color: rgba(255, 255, 255, 1);
 }

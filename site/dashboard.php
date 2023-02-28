@@ -23,11 +23,6 @@ $User = new User($_SESSION["user_id"]);
         <!-- sidebar -->
         <section id="sidebar">
             <img src="public/assets/images/logo-white.png" alt="diboard logo" />
-            <a id="logout" class="icon" href="/logout">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M5.636 5.636a9 9 0 1012.728 0M12 3v9" />
-                </svg>
-            </a>
         </section>
         <!-- main content -->
         <div id="main">
@@ -36,7 +31,7 @@ $User = new User($_SESSION["user_id"]);
                     <h2>Dashboard</h2>
                     <a href="/new-post" class="icon" id="new-post">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                          <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                         </svg>
                     </a>
                 </div>
@@ -60,64 +55,65 @@ $User = new User($_SESSION["user_id"]);
                         )
                         as $row
                     ) { ?>
-                        <div class="post">
-                            <?php if ($row["thumbnail"] !== null) { ?>
-                                <div class="thumbnail">
-                                    <img src="<?= $row[
-                                        "thumbnail"
-                                    ] ?>" alt="Post image">
-                                </div>
-                            <?php } ?>
-                            <div class="text">
-                                <h2><?= $row["title"] ?></h2>
-                                <p><?= nl2br(
-                                    Filter::Link($row["content"])
-                                ) ?></p>
-                            </div>
-                            <div class="controls">
-                                <div class="signature">
-                                    <p class="timestamp"><?= Carbon::parse(
-                                        $row["pub_time"]
-                                    )->diffForHumans() ?></p>
-                                    <span>&bull;</span>
-                                    <p class="author"><?= $row[
-                                        "username"
-                                    ] ?></p>
-                                    <?php if ($row["edited"] == 1) { ?>
-                                        <p class="edited">Edited</p>
-                                    <?php } ?>
-                                </div>
-                                <?php if (
-                                    $row["user_id"] == $User->user_id
-                                ) { ?>
-                                    <!-- edit and delete buttons only show on the logged in user's posts -->
-                                    <div class="buttons">
-                                        <a class="icon delete" href="/delete-post?id=<?= $row[
-                                            "id"
-                                        ] ?>">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                              <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
-                                            </svg>
-                                        </a>
-                                        <a class="icon edit" href="/edit-post?id=<?= $row[
-                                            "id"
-                                        ] ?>">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                              <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" />
-                                            </svg>
-                                        </a>
-                                    </div>
+                    <div class="post">
+                        <?php if ($row["thumbnail"] !== null) { ?>
+                        <div class="thumbnail">
+                            <img src="<?= $row[
+                                "thumbnail"
+                            ] ?>" alt="Post image">
+                        </div>
+                        <?php } ?>
+                        <div class="text">
+                            <h2><?= $row["title"] ?></h2>
+                            <p><?= nl2br(Filter::Link($row["content"])) ?></p>
+                        </div>
+                        <div class="controls">
+                            <div class="signature">
+                                <p class="timestamp"><?= Carbon::parse(
+                                    $row["pub_time"]
+                                )->diffForHumans() ?></p>
+                                <span>&bull;</span>
+                                <p class="author"><?= $row["username"] ?></p>
+                                <?php if ($row["edited"] == 1) { ?>
+                                <p class="edited">Edited</p>
                                 <?php } ?>
                             </div>
+                            <?php if ($row["user_id"] == $User->user_id) { ?>
+                            <!-- edit and delete buttons only show on the logged in user's posts -->
+                            <div class="buttons">
+                                <a class="icon delete" href="/delete-post?id=<?= $row[
+                                    "id"
+                                ] ?>">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                                    </svg>
+                                </a>
+                                <a class="icon edit" href="/edit-post?id=<?= $row[
+                                    "id"
+                                ] ?>">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" />
+                                    </svg>
+                                </a>
+                            </div>
+                            <?php } ?>
                         </div>
+                    </div>
                     <?php } ?>
                 </div>
             </section>
         </div>
         <!-- friends -->
-        <section id="activity-bar">
-            <h2>Participants</h2>
-            <div id="participant-list">
+        <section id="activity">
+            <div class="titlebar">
+                <h2>Members</h2>
+                <a id="logout" class="icon" href="/logout">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M5.636 5.636a9 9 0 1012.728 0M12 3v9" />
+                    </svg>
+                </a>
+            </div>
+            <div id="members">
                 <?php foreach (
                     $sql_connection->query(
                         'SELECT
@@ -130,17 +126,17 @@ $User = new User($_SESSION["user_id"]);
                     )
                     as $row
                 ) { ?>
-                    <div class="participant">
-                        <div class="avatar" style="background-image: url('<?= $row[
-                            "avatar"
-                        ] ?>')"></div>
-                        <div class="text">
-                            <?php if ($row["username"] === $User->username) { ?>
-                                <p>This is you</p>
-                            <?php } ?>
-                            <h5><?= $row["username"] ?></h5>
-                        </div>
+                <div class="participant">
+                    <div class="avatar" style="background-image: url('<?= $row[
+                        "avatar"
+                    ] ?>')"></div>
+                    <div class="text">
+                        <?php if ($row["username"] === $User->username) { ?>
+                        <p>This is you</p>
+                        <?php } ?>
+                        <h5><?= $row["username"] ?></h5>
                     </div>
+                </div>
                 <?php } ?>
             </div>
         </section>
