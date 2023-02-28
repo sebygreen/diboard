@@ -1,100 +1,77 @@
 <?php
-
 const __CONFIG__ = true;
 require_once "../inc/config.php";
+// composer autoload
+require_once "../vendor/autoload.php";
+// ramsey/uuid
+use Ramsey\Uuid\Uuid;
 
-$valid_extension = ["jpeg", "jpg", "png", "gif", "bmp"]; // authorised formats
-$upload_path = "../storage/avatars/"; // file content gets saved here (db's like mySql don't do very well with images)
+// allowed image files
+$extensions = ["jpeg", "jpg", "png", "webp", "gif", "bmp"]; // authorised formats
 
+// check for POST
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // check if post is sent to the right place
     $return = [];
 
-    if (
-        !empty($_POST["username"]) &&
-        !empty($_POST["email"]) &&
-        !empty($_POST["password"])
-    ) {
-        // check for empty text fields
+    // check for empty text fields
+    if (!empty($_POST["username"]) && !empty($_POST["email"]) && !empty($_POST["password"])) {
+        // check if file is selected
         if (!empty($_FILES)) {
             $avatar = $_FILES["avatar"]["name"]; // main file
-            $temporary_avatar = $_FILES["avatar"]["tmp_name"]; // temporary location where the file is being kept
-            $avatar_extension = strtolower(
-                pathinfo($avatar, PATHINFO_EXTENSION)
-            );
-            $final_avatar = rand(1000, 1000000) . $avatar; // can upload the same image
+            $extension = strtolower(pathinfo($avatar, PATHINFO_EXTENSION));
 
-            if (in_array($avatar_extension, $valid_extension)) {
-                // extension validation
-                if ($_FILES["avatar"]["size"] < 1000000) {
-                    $upload_path = $upload_path . strtolower($final_avatar); // final upload path
+            // check extension against valid extensions array
+            if (in_array($extension, $extensions)) {
+                // file size validation (4mb hard limit)
+                if ($_FILES["avatar"]["size"] < 4000000) {
+                    $temp = $_FILES["avatar"]["tmp_name"]; // temporary location where the file is being kept
+                    $filename = Uuid::uuid4() . "_" . Uuid::fromDateTime(date_create()) . "." . $extension; // uuid plus extension to create filename
+                    $upload_path = "../storage/avatars/" . $filename; // final upload path
+                    $database_path = "storage/avatars/" . $filename; // final database path
 
-                    if (move_uploaded_file($temporary_avatar, $upload_path)) {
-                        // when upload is complete, do the rest
-                        if (Validator::Email($_POST["email"])) {
-                            // email validation
-                            $email = $_POST["email"];
-                            $email_found = User::findEmail($email);
+                    // form validation
+                    if (Validator::Email($_POST["email"])) {
+                        $email = $_POST["email"];
+                        $email_found = User::findEmail($email);
 
-                            if ($email_found) {
-                                // if user exists throw error
-                                $return["error"] =
-                                    "You already have an account";
-                            } else {
-                                // user does not exist, add them now
-                                $username = Filter::String($_POST["username"]);
-                                $username_found = User::findUsername($username);
+                        // check if email is already registered
+                        if (!$email_found) {
+                            // sanitize
+                            $username = Filter::String($_POST["username"]);
+                            $username_found = User::findUsername($username);
 
-                                if ($username_found) {
-                                    // if username already taken, error
-                                    $return["error"] =
-                                        "This username is already taken";
-                                } else {
+                            // check if username is already taken
+                            if (!$username_found) {
+                                // copy file to server storage
+                                if (move_uploaded_file($temp, $upload_path)) {
                                     // log user in
-                                    $password = password_hash(
-                                        $_POST["password"],
-                                        PASSWORD_DEFAULT
-                                    );
-
+                                    $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
+                                    $uuid = Uuid::uuid4();
                                     $addUser = $sql_connection->prepare(
-                                        "INSERT INTO users(username, email, password, avatar) VALUES(:username, LOWER(:email), :password, :avatar)"
+                                        "INSERT INTO users(uuid, username, email, password, avatar) VALUES(:uuid, :username, LOWER(:email), :password, :avatar)"
                                     );
-                                    $addUser->bindParam(
-                                        ":username",
-                                        $username,
-                                        PDO::PARAM_STR
-                                    );
-                                    $addUser->bindParam(
-                                        ":email",
-                                        $email,
-                                        PDO::PARAM_STR
-                                    );
-                                    $addUser->bindParam(
-                                        ":password",
-                                        $password,
-                                        PDO::PARAM_STR
-                                    );
-                                    $addUser->bindParam(
-                                        ":avatar",
-                                        $upload_path,
-                                        PDO::PARAM_STR
-                                    );
+                                    $addUser->bindParam(":uuid", $uuid, PDO::PARAM_STR);
+                                    $addUser->bindParam(":username", $username, PDO::PARAM_STR);
+                                    $addUser->bindParam(":email", $email, PDO::PARAM_STR);
+                                    $addUser->bindParam(":password", $password, PDO::PARAM_STR);
+                                    $addUser->bindParam(":avatar", $database_path, PDO::PARAM_STR);
                                     $addUser->execute();
-
-                                    $user_id = $sql_connection->lastInsertId();
-
-                                    $_SESSION["user_id"] = (int) $user_id;
+                                    $_SESSION["user"] = $uuid;
 
                                     $return["redirect"] = "/dashboard";
                                     $return["is_logged_in"] = true;
+                                } else {
+                                    $return["error"] = "Image upload failed";
                                 }
+                            } else {
+                                $return["error"] = "This username is already taken";
                             }
                         } else {
-                            $return["error"] =
-                                "Please enter a valid email address";
+                            $return["error"] = "You already have an account";
                         }
                     } else {
-                        $return["error"] = "Image upload failed";
+                        $return["error"] = "Please enter a valid email address";
                     }
                 } else {
                     $return["error"] = "The selected file is too large";

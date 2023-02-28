@@ -7,7 +7,7 @@ require_once "../vendor/autoload.php";
 use Ramsey\Uuid\Uuid;
 
 // get current user
-$User = new User($_SESSION["user_id"]);
+$User = new User($_SESSION["user"]);
 // allowed image files
 $extensions = ["jpeg", "jpg", "png", "webp", "gif", "bmp"]; // authorised formats
 
@@ -19,6 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // if the files super global is empty, don't process it. let the default value of null be set
             $thumbnail = $_FILES["thumbnail"]["name"]; // main file
             $extension = strtolower(pathinfo($thumbnail, PATHINFO_EXTENSION)); // get current file extension
+
             // check extension against valid extensions array
             if (in_array($extension, $extensions)) {
                 // file size validation (4mb hard limit)
@@ -27,6 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $filename = Uuid::uuid4() . "_" . Uuid::fromDateTime(date_create()) . "." . $extension; // uuid plus extension to create filename
                     $upload_path = "../storage/thumbnails/" . $filename; // final upload path
                     $database_path = "storage/thumbnails/" . $filename; // final database path
+
                     // copy file to storage on filesystem
                     if (move_uploaded_file($tmp, $upload_path)) {
                         // when copy is complete, do the rest
@@ -34,12 +36,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         $content = $_POST["content"];
                         $content = Filter::String($content, true);
                         $addPost = $sql_connection->prepare(
-                            "INSERT INTO posts(thumbnail, title, content, user_id) VALUES(:thumbnail, :title, :content, :user_id)"
+                            "INSERT INTO posts(thumbnail, title, content, author) VALUES(:thumbnail, :title, :content, :author)"
                         );
                         $addPost->bindParam(":thumbnail", $database_path, PDO::PARAM_STR);
                         $addPost->bindParam(":title", $title, PDO::PARAM_STR);
                         $addPost->bindParam(":content", $content, PDO::PARAM_STR);
-                        $addPost->bindParam(":user_id", $User->user_id, PDO::PARAM_STR);
+                        $addPost->bindParam(":author", $User->uuid, PDO::PARAM_STR);
                         $addPost->execute();
                         // redirect
                         $return["redirect"] = "/dashboard";
@@ -56,12 +58,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // if no thumbnail, proceed without
             $title = Filter::String($_POST["title"]);
             $content = Filter::String($_POST["content"], true);
-            $addPost = $sql_connection->prepare(
-                "INSERT INTO posts(title, content, user_id) VALUES(:title, :content, :user_id)"
-            );
+            $addPost = $sql_connection->prepare("INSERT INTO posts(title, content, author) VALUES(:title, :content, :author)");
             $addPost->bindParam(":title", $title, PDO::PARAM_STR);
             $addPost->bindParam(":content", $content, PDO::PARAM_STR);
-            $addPost->bindParam(":user_id", $User->user_id, PDO::PARAM_STR);
+            $addPost->bindParam(":author", $User->uuid, PDO::PARAM_STR);
             $addPost->execute();
             $return["redirect"] = "/dashboard";
         }

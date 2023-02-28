@@ -2,7 +2,7 @@
 const __CONFIG__ = true;
 require_once "inc/config.php";
 
-$User = new User($_SESSION["user_id"]);
+$User = new User($_SESSION["user"]);
 
 if (isset($_GET["id"]) and is_numeric($_GET["id"])) {
     $post_id = $_GET["id"];

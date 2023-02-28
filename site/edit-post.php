@@ -43,9 +43,8 @@ $Post = new Post($post_id);
                 </div>
                 <div class="input">
                     <label for="content">Content</label>
-                    <textarea name="content" id="content" rows="8" placeholder="Your message...">
-                        <?= Filter::br2nl($Post->content) ?>
-                    </textarea>
+                    <!-- HACK: both textarea tags have to be on a single line as whitespaces are counted -->
+                    <textarea name="content" id="content" rows="8" placeholder="Your message..."><?= Filter::br2nl($Post->content) ?></textarea>
                     <p class="tooltip">Links are supported! e.g. https://google.com</p>
                 </div>
             </div>

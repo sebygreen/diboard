@@ -1,8 +1,7 @@
 /*general styles & reset*/
 * {
-    font-family: "Satochi", -apple-system, BlinkMacSystemFont, "Segoe UI",
-        Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji",
-        "Segoe UI Emoji", "Segoe UI Symbol";
+    font-family: "Satochi", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+        "Segoe UI Symbol";
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     margin: 0;
@@ -45,15 +44,13 @@ a {
     padding: 14px 28px;
     border-radius: 8px;
     text-decoration: none;
-    box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0),
-        0px 5px 10px 0px rgba(0, 0, 0, 0);
+    box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0), 0px 5px 10px 0px rgba(0, 0, 0, 0);
     transition-duration: 200ms;
 }
 
 .button:hover {
     transform: scale(1.05);
-    box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.1),
-        0px 5px 10px 0px rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.1), 0px 5px 10px 0px rgba(0, 0, 0, 0.1);
 }
 
 /*icon button*/
@@ -67,8 +64,7 @@ a {
     text-decoration: none;
     color: rgba(255, 255, 255, 1);
     background: rgba(255, 255, 255, 0.1);
-    box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0),
-        0px 5px 10px 0px rgba(0, 0, 0, 0);
+    box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0), 0px 5px 10px 0px rgba(0, 0, 0, 0);
     transition-duration: 200ms;
 }
 
@@ -79,8 +75,7 @@ a {
 
 .icon:hover {
     transform: scale(1.05);
-    box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.05),
-        0px 5px 10px 0px rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.05), 0px 5px 10px 0px rgba(0, 0, 0, 0.1);
 }
 
 /*index page*/
@@ -184,7 +179,7 @@ form .preview .wrapper {
 
 form .preview .showcase {
     height: 120px;
-    width: 160px;
+    width: 120px;
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
@@ -221,8 +216,7 @@ form .input textarea {
     color: rgba(255, 255, 255, 1);
     padding: 14px 18px;
     border-radius: 8px;
-    box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0),
-        0px 5px 10px 0px rgba(0, 0, 0, 0);
+    box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0), 0px 5px 10px 0px rgba(0, 0, 0, 0);
     transition-duration: 200ms;
     white-space: pre-wrap;
 }
@@ -235,8 +229,7 @@ form .input textarea::placeholder {
 form .input input:focus,
 form .input textarea:focus {
     transform: scale(1.01);
-    box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.05),
-        0px 5px 10px 0px rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.05), 0px 5px 10px 0px rgba(0, 0, 0, 0.1);
 }
 
 form #submit {
@@ -280,11 +273,6 @@ form .tooltip {
     width: 50px;
     opacity: 0.2;
 }
-
-/*#sidebar #logout {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: rgba(255, 255, 255, 1);
-}*/
 
 /*main content*/
 #main {
@@ -337,43 +325,6 @@ form .tooltip {
     height: auto;
 }
 
-#grid .post .controls {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-}
-
-#grid .post .controls .signature {
-    display: flex;
-    align-items: baseline;
-}
-
-#grid .post .controls .signature .timestamp {
-    font-size: 16px;
-    font-weight: 600;
-    color: rgba(255, 255, 255, 1);
-}
-
-#grid .post .controls .signature span {
-    color: rgba(255, 255, 255, 0.2);
-    margin: 0 5px;
-}
-
-#grid .post .controls .signature .author {
-    font-size: 16px;
-    font-weight: 400;
-    color: rgba(255, 255, 255, 0.6);
-}
-
-#grid .post .controls .buttons {
-    display: flex;
-}
-
-#grid .post .controls .buttons .delete {
-    background-color: rgba(202, 65, 46, 1);
-    margin: 0 10px 0 0;
-}
-
 #grid .post .thumbnail {
     margin: 0 0 20px 0;
 }
@@ -382,6 +333,25 @@ form .tooltip {
     height: auto;
     width: 100%;
     border-radius: 8px;
+}
+
+#grid .post .author {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+#grid .post .author img {
+    height: 20px;
+    width: auto;
+    border-radius: 50%;
+}
+
+#grid .post .author .username {
+    font-size: 18px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.6);
 }
 
 #grid .post .text {
@@ -398,19 +368,50 @@ form .tooltip {
 #grid .post .text p {
     font-size: 16px;
     font-weight: 400;
-    color: rgba(255, 255, 255, 0.6);
+    color: rgb(169, 169, 169);
 }
 
-.edited {
-    font-size: 14px;
-    text-transform: uppercase;
+#grid .post .controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+#grid .post .controls .timestamp {
+    font-size: 18px;
     font-weight: 600;
-    display: inline-block;
+    color: rgba(255, 255, 255, 1);
+}
+
+#grid .post .controls .buttons {
+    display: flex;
+}
+
+#grid .post .controls .buttons .delete {
+    background-color: rgba(202, 65, 46, 1);
+    margin: 0 10px 0 0;
+}
+
+#grid .post .signature {
+    display: flex;
+    align-items: baseline;
+}
+
+#grid .post .edited {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 14px;
+    font-weight: 400;
     background-color: rgba(20, 20, 20, 1);
-    color: rgba(255, 255, 255, 0.4);
-    padding: 2px 5px;
-    border-radius: 4px;
-    margin: 0 0 0 5px;
+    color: rgba(255, 255, 255, 0.6);
+    padding: 4px 8px;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+#grid .post .edited svg {
+    height: 14px;
 }
 
 /*TODO: update activity list style names*/

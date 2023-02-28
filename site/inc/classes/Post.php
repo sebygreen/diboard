@@ -11,7 +11,7 @@ class Post
     public $thumbnail;
     public $title;
     public $content;
-    public $author_id;
+    public $author;
 
     public function __construct($post_id)
     {
@@ -19,9 +19,7 @@ class Post
 
         $post_id = Filter::Integer($post_id);
 
-        $post = $this->sql_connection->prepare(
-            "SELECT posts.id, posts.thumbnail, posts.title, posts.content, posts.user_id FROM posts WHERE id = :id LIMIT 1"
-        );
+        $post = $this->sql_connection->prepare("SELECT posts.id, posts.thumbnail, posts.title, posts.content, posts.author FROM posts WHERE id = :id LIMIT 1");
         $post->bindParam(":id", $post_id, PDO::PARAM_INT);
         $post->execute();
 
@@ -33,7 +31,7 @@ class Post
             $this->thumbnail = (string) $post->thumbnail;
             $this->title = (string) $post->title;
             $this->content = (string) $post->content;
-            $this->author_id = (int) $post->user_id;
+            $this->author = (string) $post->author;
         } else {
             // no post
             header("Location: /dashboard.php");
