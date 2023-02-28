@@ -140,11 +140,6 @@ form {
     padding: 40px;
 }
 
-/*form #back {
-    background-color: rgba(40, 40, 40, 1);
-    color: rgba(255, 255, 255, 1);
-}*/
-
 form .titlebar {
     display: flex;
     align-items: center;
@@ -255,8 +250,8 @@ form .error {
 }
 
 form .tooltip {
-    font-size: 11px;
-    color: grey;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.6);
     margin: 5px 0 0 0;
 }
 
@@ -394,7 +389,7 @@ form .tooltip {
 }
 
 #grid .post .text h2 {
-    font-size: 32px;
+    font-size: 28px;
     font-weight: 600;
     color: rgba(255, 255, 255, 1);
     margin: 0 0 10px 0;

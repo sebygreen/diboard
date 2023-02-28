@@ -20,7 +20,7 @@ $Post = new Post($post_id);
             <div class="titlebar">
                 <a class="icon" id="back" href="/dashboard">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
                     </svg>
                 </a>
                 <h2>Edit</h2>
@@ -33,11 +33,10 @@ $Post = new Post($post_id);
                     <div class="wrapper">
                         <label for="thumbnail">Thumbnail</label>
                         <input class="js-image" name="thumbnail" id="thumbnail" type="file" value="<?= $Post->thumbnail ?>" />
+                        <p class="tooltip">Uploading a thumbnail is optional</p>
                     </div>
                     <div class="showcase"></div>
                 </div>
-                <div class="showcase"></div>
-                <p class="tooltip">Uploading a thumbnail is optional</p>
                 <div class="input">
                     <label for="title">Title</label>
                     <input name="title" id="title" type="text" placeholder="new phone who dis" value="<?= $Post->title ?>" />
