@@ -9,7 +9,7 @@ class Page
     {
         // force to login when trying to access unauthorized page
         if (!isset($_SESSION["user"])) {
-            header("Location: /login.php");
+            header("Location: /login");
             exit();
         }
     }
@@ -18,7 +18,7 @@ class Page
     {
         // force to dashboard when trying to access login or register page when already connected
         if (isset($_SESSION["user"])) {
-            header("Location: /dashboard.php");
+            header("Location: /dashboard");
             exit();
         }
     }

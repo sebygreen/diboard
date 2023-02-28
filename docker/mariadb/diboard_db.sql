@@ -38,10 +38,10 @@ CREATE TABLE `posts` (
   `pub_time` timestamp NOT NULL DEFAULT current_timestamp() COMMENT 'Post''s publication timestamp',
   `edit_time` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp() COMMENT 'Time of edit',
   `edited` tinyint(1) NOT NULL DEFAULT 0 COMMENT 'If post is edited',
-  `author` int(11) NOT NULL COMMENT 'Post''s author uuid',
+  `author` varchar(255) NOT NULL COMMENT 'Post''s author uuid',
   PRIMARY KEY (`id`),
   UNIQUE KEY `author` (`author`) USING BTREE,
-  CONSTRAINT `Post author` FOREIGN KEY (`author`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `author` FOREIGN KEY (`author`) REFERENCES `users` (`uuid`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
