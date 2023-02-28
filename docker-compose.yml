@@ -38,6 +38,4 @@ services:
             MARIADB_MYSQL_LOCALHOST_USER: yes
             MARIADB_DATABASE: diboard_db
         volumes:
-            - /etc/timezone:/etc/timezone:ro
-            - /etc/localtime:/etc/localtime:ro
             - ./docker/mariadb/dump.sql:/docker-entrypoint-initdb.d/dump.sql:ro
