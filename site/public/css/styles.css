@@ -1,6 +1,6 @@
 /*general styles & reset*/
 * {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
         "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -268,7 +268,7 @@ form .tooltip {
     justify-content: space-between;
     align-items: center;
     padding: 25px;
-    background-color: rgba(40, 40, 40, 1);
+    background-color: rgba(82, 41, 123, 1);
 }
 
 #sidebar img {
@@ -278,7 +278,7 @@ form .tooltip {
 }
 
 #sidebar #logout {
-    background-color: rgba(82, 41, 123, 1);
+    background-color: rgba(20, 20, 40, 0.4);
     color: rgba(255, 255, 255, 1);
 }
 
@@ -304,7 +304,8 @@ form .tooltip {
 }
 
 #titlebar h2 {
-    font-size: 28px;
+    font-size: 32px;
+    font-weight: 600;
     color: rgba(255, 255, 255, 1);
     margin: 0 20px 0 0;
 }
@@ -344,8 +345,8 @@ form .tooltip {
 }
 
 #grid .post .controls .signature .timestamp {
-    font-size: 14px;
-    font-weight: bold;
+    font-size: 16px;
+    font-weight: 600;
     color: rgba(255, 255, 255, 1);
 }
 
@@ -355,8 +356,9 @@ form .tooltip {
 }
 
 #grid .post .controls .signature .author {
-    font-size: 14px;
-    color: rgba(255, 255, 255, 0.4);
+    font-size: 16px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.6);
 }
 
 #grid .post .controls .buttons {
@@ -389,13 +391,15 @@ form .tooltip {
 }
 
 #grid .post .text h2 {
-    font-size: 28px;
+    font-size: 32px;
+    font-weight: 600;
     color: rgba(255, 255, 255, 1);
     margin: 0 0 10px 0;
 }
 
 #grid .post .text p {
     font-size: 16px;
+    font-weight: 400;
     color: rgba(255, 255, 255, 0.6);
 }
 
@@ -414,11 +418,11 @@ form .tooltip {
 /*users list*/
 #activity-bar {
     padding: 25px;
-    background-color: #292929;
 }
 
 #activity-bar h2 {
-    font-size: 28px;
+    font-size: 32px;
+    font-weight: 600;
     color: rgba(255, 255, 255, 1);
     margin: 0 20px 0 0;
 }
@@ -458,5 +462,6 @@ form .tooltip {
 
 #participant-list .participant .text h5 {
     font-size: 16px;
+    font-weight: 600;
     color: rgba(255, 255, 255, 1);
 }

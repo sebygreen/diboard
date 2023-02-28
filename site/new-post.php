@@ -18,7 +18,7 @@ Page::redirectToLogin();
             <div class="titlebar">
                 <a class="icon" id="back" href="/dashboard">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
                     </svg>
                 </a>
                 <h2>Create a post</h2>
@@ -39,10 +39,10 @@ Page::redirectToLogin();
                 <div class="input">
                     <label for="content">Content</label>
                     <textarea name="content" id="content" rows="8" placeholder="Your message..."></textarea>
-                    <p class="form-tooltip">Links are supported! e.g. https://google.com</p>
+                    <p class="tooltip">Links are supported! e.g. https://google.com</p>
                 </div>
             </div>
-            <div class="js-error form-error" style="display: none"></div>
+            <div class="js-error error" style="display: none"></div>
             <button class="button" id="submit" type="submit">Publish</button>
         </form>
     </div>
