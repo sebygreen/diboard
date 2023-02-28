@@ -16,6 +16,14 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Current Database: `diboard_db`
+--
+
+CREATE DATABASE /*!32312 IF NOT EXISTS*/ `diboard_db` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
+
+USE `diboard_db`;
+
+--
 -- Table structure for table `posts`
 --
 
@@ -23,16 +31,17 @@ DROP TABLE IF EXISTS `posts`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `posts` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Post''s ID',
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Post''s index',
   `thumbnail` varchar(255) DEFAULT NULL COMMENT 'Optional thumbnail',
   `title` varchar(255) NOT NULL COMMENT 'Post''s title',
   `content` text NOT NULL COMMENT 'Post''s content',
   `pub_time` timestamp NOT NULL DEFAULT current_timestamp() COMMENT 'Post''s publication timestamp',
-  `edited` tinyint(1) NOT NULL DEFAULT 0,
-  `user_id` int(11) NOT NULL COMMENT 'User''s foreign key',
+  `edit_time` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp() COMMENT 'Time of edit',
+  `edited` tinyint(1) NOT NULL DEFAULT 0 COMMENT 'If post is edited',
+  `author` int(11) NOT NULL COMMENT 'Post''s author uuid',
   PRIMARY KEY (`id`),
-  KEY `Post Author` (`user_id`) USING BTREE,
-  CONSTRAINT `Post author` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  UNIQUE KEY `author` (`author`) USING BTREE,
+  CONSTRAINT `Post author` FOREIGN KEY (`author`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -53,13 +62,15 @@ DROP TABLE IF EXISTS `users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `users` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'User''s ID',
-  `username` varchar(255) NOT NULL COMMENT 'User''s username',
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'User''s index',
+  `uuid` varchar(255) NOT NULL COMMENT 'User''s unique identifier',
+  `username` varchar(255) DEFAULT NULL COMMENT 'User''s username',
   `email` varchar(255) DEFAULT NULL COMMENT 'User''s email',
-  `password` varchar(255) NOT NULL COMMENT 'User''s hashed password',
-  `reg_time` timestamp NOT NULL DEFAULT current_timestamp() COMMENT 'Account registration timestamp',
+  `password` varchar(255) DEFAULT NULL COMMENT 'User''s hashed password',
   `avatar` varchar(255) NOT NULL COMMENT 'User''s avatar',
+  `reg_time` timestamp NOT NULL DEFAULT current_timestamp() COMMENT 'Account registration timestamp',
   PRIMARY KEY (`id`),
+  UNIQUE KEY `uuid` (`uuid`) USING BTREE,
   UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='users table';
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -70,8 +81,6 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES
-(1,'Dyrsin','sebygreen@gmail.com','$2y$10$1Q48AsBwVKmhBnR.pIDFlepjULRR3rrqyOLLNJyTHasvzc3NrMydW','2023-02-27 15:45:37','../storage/avatars/179659blini cat.jpg');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -84,4 +93,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-02-27 16:10:03
+-- Dump completed on 2023-02-28 17:15:39

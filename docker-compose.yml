@@ -38,4 +38,4 @@ services:
             MARIADB_MYSQL_LOCALHOST_USER: yes
             MARIADB_DATABASE: diboard_db
         volumes:
-            - ./docker/mariadb/dump.sql:/docker-entrypoint-initdb.d/dump.sql:ro
+            - ./docker/mariadb/diboard_db.sql:/docker-entrypoint-initdb.d/diboard_db.sql:ro
