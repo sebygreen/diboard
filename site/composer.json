@@ -1,5 +1,6 @@
 {
     "require": {
-        "ramsey/uuid": "^4.7"
+        "ramsey/uuid": "^4.7",
+        "nesbot/carbon": "^2.66"
     }
 }

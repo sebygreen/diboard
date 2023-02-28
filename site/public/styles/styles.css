@@ -1,7 +1,8 @@
 /*general styles & reset*/
 * {
-    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
-        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-family: "Satochi", -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji",
+        "Segoe UI Emoji", "Segoe UI Symbol";
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     margin: 0;
@@ -44,13 +45,15 @@ a {
     padding: 14px 28px;
     border-radius: 8px;
     text-decoration: none;
-    box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0), 0px 5px 10px 0px rgba(0, 0, 0, 0);
-    transition-duration: 300ms;
+    box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0),
+        0px 5px 10px 0px rgba(0, 0, 0, 0);
+    transition-duration: 200ms;
 }
 
 .button:hover {
     transform: scale(1.05);
-    box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.1), 0px 5px 10px 0px rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.1),
+        0px 5px 10px 0px rgba(0, 0, 0, 0.1);
 }
 
 /*icon button*/
@@ -62,8 +65,11 @@ a {
     width: 40px;
     border-radius: 8px;
     text-decoration: none;
-    box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0), 0px 5px 10px 0px rgba(0, 0, 0, 0);
-    transition-duration: 300ms;
+    color: rgba(255, 255, 255, 1);
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0),
+        0px 5px 10px 0px rgba(0, 0, 0, 0);
+    transition-duration: 200ms;
 }
 
 .icon svg {
@@ -73,7 +79,8 @@ a {
 
 .icon:hover {
     transform: scale(1.05);
-    box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.05), 0px 5px 10px 0px rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.05),
+        0px 5px 10px 0px rgba(0, 0, 0, 0.1);
 }
 
 /*index page*/
@@ -133,10 +140,10 @@ form {
     padding: 40px;
 }
 
-form #back {
+/*form #back {
     background-color: rgba(40, 40, 40, 1);
     color: rgba(255, 255, 255, 1);
-}
+}*/
 
 form .titlebar {
     display: flex;
@@ -219,8 +226,9 @@ form .input textarea {
     color: rgba(255, 255, 255, 1);
     padding: 14px 18px;
     border-radius: 8px;
-    box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0), 0px 5px 10px 0px rgba(0, 0, 0, 0);
-    transition-duration: 300ms;
+    box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0),
+        0px 5px 10px 0px rgba(0, 0, 0, 0);
+    transition-duration: 200ms;
     white-space: pre-wrap;
 }
 
@@ -232,7 +240,8 @@ form .input textarea::placeholder {
 form .input input:focus,
 form .input textarea:focus {
     transform: scale(1.01);
-    box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.05), 0px 5px 10px 0px rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.05),
+        0px 5px 10px 0px rgba(0, 0, 0, 0.1);
 }
 
 form #submit {
@@ -277,10 +286,10 @@ form .tooltip {
     opacity: 0.2;
 }
 
-#sidebar #logout {
-    background-color: rgba(20, 20, 40, 0.4);
+/*#sidebar #logout {
+    background-color: rgba(255, 255, 255, 0.2);
     color: rgba(255, 255, 255, 1);
-}
+}*/
 
 /*main content*/
 #main {
@@ -310,10 +319,10 @@ form .tooltip {
     margin: 0 20px 0 0;
 }
 
-#titlebar #new-post {
+/*#titlebar #new-post {
     background-color: rgba(40, 40, 40, 1);
     color: rgba(255, 255, 255, 1);
-}
+}*/
 
 /*main grid*/
 #grid {
@@ -367,13 +376,7 @@ form .tooltip {
 
 #grid .post .controls .buttons .delete {
     background-color: rgba(202, 65, 46, 1);
-    color: rgba(255, 255, 255, 1);
     margin: 0 10px 0 0;
-}
-
-#grid .post .controls .buttons .edit {
-    background-color: rgba(60, 60, 60, 1);
-    color: rgba(255, 255, 255, 1);
 }
 
 #grid .post .thumbnail {
@@ -415,6 +418,7 @@ form .tooltip {
     margin: 0 0 0 5px;
 }
 
+/*TODO: update activity list style names*/
 /*users list*/
 #activity-bar {
     padding: 25px;

@@ -13,8 +13,7 @@ services:
             - php-fpm
         volumes:
             - ./site:/var/www/html
-            - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
-            - ./docker/nginx/error.log:/var/log/nginx/error.log
+            - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
         depends_on:
             - php-fpm
     php-fpm:
@@ -24,7 +23,7 @@ services:
             - internal
         volumes:
             - ./site:/var/www/html
-            - ./docker/php-fpm/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
+            - ./docker/php-fpm/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini:ro
         depends_on:
             - mariadb
     mariadb:
@@ -39,4 +38,6 @@ services:
             MARIADB_MYSQL_LOCALHOST_USER: yes
             MARIADB_DATABASE: diboard_db
         volumes:
-            - ./docker/mariadb/dump.sql:/docker-entrypoint-initdb.d/dump.sql
+            - /etc/timezone:/etc/timezone:ro
+            - /etc/localtime:/etc/localtime:ro
+            - ./docker/mariadb/dump.sql:/docker-entrypoint-initdb.d/dump.sql:ro
