@@ -40,7 +40,6 @@ CREATE TABLE `posts` (
   `edited` tinyint(1) NOT NULL DEFAULT 0 COMMENT 'If post is edited',
   `author` varchar(255) NOT NULL COMMENT 'Post''s author uuid',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `author` (`author`) USING BTREE,
   CONSTRAINT `author` FOREIGN KEY (`author`) REFERENCES `users` (`uuid`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
