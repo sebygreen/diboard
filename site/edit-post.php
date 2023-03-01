@@ -12,6 +12,7 @@ $Post = new Post($post_id);
 <head>
     <?php require_once "inc/head.php"; ?>
     <title>diboard | Edit</title>
+    <script defer src="public/scripts/index.js"></script>
 </head>
 
 <body>
