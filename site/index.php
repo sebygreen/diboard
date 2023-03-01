@@ -23,7 +23,6 @@ require_once "inc/config.php";
             </div>
         </section>
     </div>
-    <?php require_once "inc/footer.php"; ?>
 </body>
 
 </html>

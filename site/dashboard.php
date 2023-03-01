@@ -21,21 +21,20 @@ $User = new User($_SESSION["user"]);
 <body>
     <div id="dashboard">
         <!-- sidebar -->
-        <section id="sidebar">
+        <aside id="sidebar">
             <img src="public/assets/images/logo-white.png" alt="diboard logo" />
-        </section>
+        </aside>
         <!-- main content -->
-        <div id="main">
-            <section id="posts">
-                <div id="titlebar">
+        <main id="main">
+                <header id="titlebar">
                     <h2>Dashboard</h2>
                     <a href="/new-post" class="icon" id="new-post">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                         </svg>
                     </a>
-                </div>
-                <div id="grid">
+                </header>
+                <section id="grid">
                     <?php foreach (
                         $sql_connection->query(
                             'SELECT
@@ -57,7 +56,7 @@ $User = new User($_SESSION["user"]);
                         )
                         as $row
                     ) { ?>
-                    <div class="post">
+                    <article class="post">
                         <?php if ($row["thumbnail"] !== null) { ?>
                         <div class="thumbnail">
                             <img src="<?= $row["thumbnail"] ?>" alt="Post image">
@@ -72,7 +71,7 @@ $User = new User($_SESSION["user"]);
                             <p><?= nl2br(Filter::Link($row["content"])) ?></p>
                         </div>
                         <div class="controls">
-                            <p class="timestamp"><?= Carbon::parse($row["pub_time"])->diffForHumans() ?></p>
+                            <time class="timestamp"><?= Carbon::parse($row["pub_time"])->diffForHumans() ?></time>
                             <?php if ($row["author"] == $User->uuid) { ?>
                             <!-- edit and delete buttons only show on the logged in user's posts -->
                             <div class="buttons">
@@ -94,25 +93,24 @@ $User = new User($_SESSION["user"]);
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" />
                             </svg>
-                            <p><?= Carbon::parse($row["edit_time"])->diffForHumans() ?></p>
+                            <time><?= Carbon::parse($row["edit_time"])->diffForHumans() ?></time>
                         </div>
                         <?php } ?>
-                    </div>
+                    </article>
                     <?php } ?>
-                </div>
-            </section>
-        </div>
+                </section>
+        </main>
         <!-- friends -->
-        <section id="activity">
-            <div class="titlebar">
+        <aside id="activity">
+            <section class="titlebar">
                 <h2>Members</h2>
                 <a id="logout" class="icon" href="/logout">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M5.636 5.636a9 9 0 1012.728 0M12 3v9" />
                     </svg>
                 </a>
-            </div>
-            <div id="members">
+            </section>
+            <section id="members">
                 <?php foreach (
                     $sql_connection->query(
                         'SELECT
@@ -125,7 +123,7 @@ $User = new User($_SESSION["user"]);
                     )
                     as $row
                 ) { ?>
-                <div class="participant">
+                <article class="user">
                     <div class="avatar" style="background-image: url('<?= $row["avatar"] ?>')"></div>
                     <div class="text">
                         <?php if ($row["username"] === $User->username) { ?>
@@ -133,12 +131,11 @@ $User = new User($_SESSION["user"]);
                         <?php } ?>
                         <h5><?= $row["username"] ?></h5>
                     </div>
-                </div>
+                </article>
                 <?php } ?>
-            </div>
-        </section>
+            </section>
+        </aside>
     </div>
-    <?php require_once "inc/footer.php"; ?>
 </body>
 
 </html>

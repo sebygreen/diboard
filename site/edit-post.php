@@ -52,7 +52,6 @@ $Post = new Post($post_id);
             <button class="button" id="submit" type="submit">Update</button>
         </form>
     </div>
-    <?php require_once "inc/footer.php"; ?>
 </body>
 
 </html>

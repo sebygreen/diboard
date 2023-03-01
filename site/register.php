@@ -49,7 +49,6 @@ Page::redirectToDashboard();
             <button class="button" id="submit" type="submit">Sign Up</button>
         </form>
     </div>
-    <?php require_once "inc/footer.php"; ?>
 </body>
 
 </html>

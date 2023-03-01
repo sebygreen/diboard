@@ -25,13 +25,27 @@ Page::redirectToLogin();
                 <img src="public/assets/images/logo-white.png" alt="diboard logo" />
             </div>
             <div class="inputs">
-                <div class="preview">
-                    <div class="wrapper">
-                        <label for="thumbnail">Thumbnail</label>
-                        <input class="js-image" name="thumbnail" id="thumbnail" type="file" />
-                        <p class="tooltip">Uploading a thumbnail is optional</p>
+                <div class="input">
+                    <label for="thumbnail">Thumbnail</label>
+                    <div class="grid">
+                        <div class="dropzone">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+                            </svg>
+                            <div class="allowed">
+                                <ul>
+                                    <li>.jpg</li>
+                                    <li>.png</li>
+                                    <li>.webp</li>
+                                    <li>.gif</li>
+                                    <li>.bmp</li>
+                                </ul>
+                                <p>4mb maximum</p>
+                            </div>
+                        </div>
+                        <div class="showcase"></div>
                     </div>
-                    <div class="showcase"></div>
+                    <p class="tooltip">Uploading a thumbnail is optional</p>
                 </div>
                 <div class="input">
                     <label for="title">Title</label>
@@ -47,7 +61,6 @@ Page::redirectToLogin();
             <button class="button" id="submit" type="submit">Publish</button>
         </form>
     </div>
-    <?php require_once "inc/footer.php"; ?>
 </body>
 
 </html>
