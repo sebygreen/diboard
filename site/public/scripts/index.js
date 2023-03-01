@@ -1,32 +1,45 @@
 const app = () => {
-    // dropzone
+    // HACK: i don't like this method but not many choices
+    // hidden file input
+    const input = document.querySelector(".file");
     const dropzone = document.querySelector(".dropzone");
+    const showcase = document.querySelector(".showcase");
+    const prevents = (e) => e.preventDefault();
+
+    // onchange event
+    input.addEventListener("change", (e) => {
+        // change background image
+        if (e.target.files && e.target.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                showcase.style.backgroundImage = "url(" + e.target.result + ")";
+            };
+            reader.readAsDataURL(e.target.files[0]);
+        }
+    });
+
+    // dropzone switches
     const active = () => {
-        console.log("active");
         dropzone.classList.add("active");
     };
     const inactive = () => {
-        console.log("inactive");
         dropzone.classList.remove("active");
     };
-    const prevents = (e) => e.preventDefault();
-    // drag events
-    ["dragenter", "dragleave", "drop"].forEach((e) => {
+
+    // dropzone drag events
+    ["dragenter", "dragleave", "dragover", "drop"].forEach((e) => {
         dropzone.addEventListener(e, prevents);
     });
     dropzone.addEventListener("dragenter", active);
     ["dragleave", "drop"].forEach((e) => {
         dropzone.addEventListener(e, inactive);
     });
-    dropzone.addEventListener("drop", handleDrop);
+
+    // drop event
+    dropzone.addEventListener("drop", (e) => {
+        input.files = e.dataTransfer.files;
+        input.dispatchEvent(new Event("change"));
+    });
 };
 
 document.addEventListener("DOMContentLoaded", app);
-
-const handleDrop = (e) => {
-    const dt = e.dataTransfer;
-    const files = dt.files;
-    const fileArray = [...files];
-
-    console.log(fileArray);
-};

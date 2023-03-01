@@ -18,7 +18,7 @@ class User
 
         $uuid = Filter::String($uuid);
 
-        $user = $this->sql_connection->prepare("SELECT id, username, email, reg_time FROM users WHERE uuid = :uuid LIMIT 1");
+        $user = $this->sql_connection->prepare("SELECT id, uuid, username, email, reg_time FROM users WHERE uuid = :uuid LIMIT 1");
         $user->bindParam(":uuid", $uuid, PDO::PARAM_INT);
         $user->execute();
 
@@ -42,7 +42,7 @@ class User
 
         // make sure the user does not exist.
         $email = (string) Filter::String($email);
-        $findEmail = $sql_connection->prepare("SELECT id, password FROM users WHERE email = LOWER(:email) LIMIT 1");
+        $findEmail = $sql_connection->prepare("SELECT uuid, password FROM users WHERE email = LOWER(:email) LIMIT 1");
         $findEmail->bindParam(":email", $email, PDO::PARAM_STR);
         $findEmail->execute();
 
@@ -59,7 +59,7 @@ class User
 
         // make sure the user does not exist.
         $username = (string) Filter::String($username);
-        $findUsername = $sql_connection->prepare("SELECT id, password FROM users WHERE username = :username LIMIT 1");
+        $findUsername = $sql_connection->prepare("SELECT uuid, password FROM users WHERE username = :username LIMIT 1");
         $findUsername->bindParam(":username", $username, PDO::PARAM_STR);
         $findUsername->execute();
 

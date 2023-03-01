@@ -1,14 +1,3 @@
-// handle image preview
-$(document).on("change", "input.js-image", function () {
-    if (this.files && this.files[0]) {
-        const reader = new FileReader();
-        reader.onload = function (event) {
-            $(".showcase").css("background-image", "url(" + event.target.result + ")"); // very simple image preview
-        };
-        reader.readAsDataURL(this.files[0]);
-    }
-});
-
 // edit post
 $(document).on("submit", "form.js-edit-post", function (event) {
     event.preventDefault();

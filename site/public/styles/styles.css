@@ -39,6 +39,8 @@ a {
 /*components*/
 /*button*/
 .button {
+    border: none;
+    outline: none;
     font-size: 18px;
     font-weight: 600;
     padding: 14px 28px;
@@ -48,14 +50,21 @@ a {
     transition-duration: 200ms;
 }
 
-.button:hover,
-.button:focus {
+.button:hover {
     transform: scale(1.05);
     box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.1), 0px 5px 10px 0px rgba(0, 0, 0, 0.1);
 }
 
+.button:focus,
+.button:focus-visible {
+    transform: scale(1.05);
+    box-shadow: inset 0px 0px 0px 2px rgba(255, 255, 255, 0.1), 0px 5px 10px 0px rgba(0, 0, 0, 0.1);
+}
+
 /*icon button*/
 .icon {
+    border: none;
+    outline: none;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -74,10 +83,184 @@ a {
     width: auto;
 }
 
-.icon:hover,
-.icon:focus {
+.icon:hover:hover {
     transform: scale(1.05);
-    box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.05), 0px 5px 10px 0px rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.1), 0px 5px 10px 0px rgba(0, 0, 0, 0.1);
+}
+
+.icon:focus,
+.icon:focus-visible {
+    transform: scale(1.05);
+    box-shadow: inset 0px 0px 0px 2px rgba(255, 255, 255, 0.1), 0px 5px 10px 0px rgba(0, 0, 0, 0.1);
+}
+
+/* forms */
+form {
+    width: 100%;
+    max-width: 480px;
+    margin: auto;
+    padding: 40px;
+}
+
+form .titlebar {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 40px;
+}
+
+form .titlebar h2 {
+    font-size: 32px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 1);
+}
+
+form .titlebar img {
+    height: 40px;
+    opacity: 0.2;
+    margin-left: auto;
+}
+
+form .inputs {
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: repeat(min-content);
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+form .input {
+    display: grid;
+    grid-template-columns: repeat(min-content);
+    gap: 10px;
+    position: relative;
+}
+
+form .input input[type="file"] {
+    visibility: hidden;
+    position: absolute;
+    bottom: 0;
+}
+
+form .input .grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+}
+
+form .input .grid .dropzone {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+    border-radius: 8px;
+    box-shadow: inset 0px 0px 0px 2px rgba(255, 255, 255, 0.1);
+    transition-duration: 200ms;
+    cursor: pointer;
+}
+
+form .input .grid .dropzone.active,
+form .input .grid .dropzone:hover,
+form .input .grid .dropzone:focus,
+form .input .grid .dropzone:focus-visible {
+    outline: none;
+    box-shadow: inset 0px 0px 0px 2px rgba(255, 255, 255, 0.2);
+    transform: scale(1.02);
+}
+
+form .input .grid .dropzone svg {
+    height: 40px;
+    color: rgba(255, 255, 255, 0.2);
+    transition-duration: 200ms;
+}
+
+form .input .grid .dropzone * {
+    pointer-events: none;
+}
+
+form .input .grid .dropzone.active svg,
+form .input .grid .dropzone:hover svg,
+form .input .grid .dropzone:focus svg,
+form .input .grid .dropzone:focus-visible svg {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+form .input .grid .dropzone .allowed {
+    text-align: center;
+    font-size: 14px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.4);
+}
+
+form .input .grid .dropzone .allowed ul {
+    list-style: none;
+    display: flex;
+    gap: 5px;
+}
+
+form .input .grid .dropzone .allowed ul li {
+    padding: 4px 8px;
+    border-radius: 4px;
+    background-color: rgba(40, 40, 40, 0.4);
+}
+
+form .input .grid .dropzone .allowed p {
+    margin-top: 10px;
+}
+
+form .input .grid .showcase {
+    background-color: rgba(40, 40, 40, 1);
+    color: rgba(255, 255, 255, 1);
+    border-radius: 8px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
+form label {
+    font-weight: 600;
+    font-size: 18px;
+    color: rgba(255, 255, 255, 1);
+}
+
+form .tooltip {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+form .input input,
+form .input textarea {
+    all: unset;
+    background-color: rgba(40, 40, 40, 1);
+    color: rgba(255, 255, 255, 1);
+    padding: 14px 18px;
+    border-radius: 8px;
+    box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0), 0px 5px 10px 0px rgba(0, 0, 0, 0);
+    transition-duration: 200ms;
+    white-space: pre-wrap;
+}
+
+form .input input::placeholder,
+form .input textarea::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+form .input input:focus,
+form .input textarea:focus {
+    transform: scale(1.02);
+    box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.1), 0px 5px 10px 0px rgba(0, 0, 0, 0.1);
+}
+
+form #submit {
+    background-color: rgba(82, 41, 123, 1);
+    color: rgba(255, 255, 255, 1);
+}
+
+form .error {
+    color: rgba(202, 65, 46, 1);
+    margin: 10px 0;
 }
 
 /*index page*/
@@ -127,177 +310,6 @@ a {
 #landing #buttons #register {
     background-color: rgba(40, 40, 40, 1);
     color: rgba(255, 255, 255, 1);
-}
-
-/* forms */
-form {
-    width: 100%;
-    max-width: 480px;
-    margin: auto;
-    padding: 40px;
-}
-
-form .titlebar {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 40px;
-}
-
-form .titlebar h2 {
-    font-size: 32px;
-    font-weight: 600;
-    color: rgba(255, 255, 255, 1);
-}
-
-form .titlebar img {
-    height: 40px;
-    opacity: 0.2;
-    margin-left: auto;
-}
-
-form .inputs {
-    display: grid;
-    grid-template-columns: auto;
-    grid-template-rows: repeat(min-content);
-    gap: 20px;
-    margin-bottom: 40px;
-}
-
-form .input {
-    display: grid;
-    grid-template-columns: repeat(min-content);
-    gap: 10px;
-}
-
-form .input .grid {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 20px;
-}
-
-form .input .grid .dropzone {
-    padding: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    gap: 20px;
-    border-radius: 8px;
-    box-shadow: inset 0px 0px 0px 2px rgba(255, 255, 255, 0.1);
-    transition-duration: 200ms;
-    cursor: pointer;
-}
-
-form .input .grid .dropzone.active,
-form .input .grid .dropzone:hover {
-    box-shadow: inset 0px 0px 0px 2px rgba(255, 255, 255, 0.2);
-    transform: scale(1.02);
-}
-
-form .input .grid .dropzone svg {
-    height: 40px;
-    color: rgba(255, 255, 255, 0.2);
-    transition-duration: 200ms;
-}
-
-form .input .grid .dropzone * {
-    pointer-events: none;
-}
-
-form .input .grid .dropzone.active svg,
-form .input .grid .dropzone:hover svg {
-    color: rgba(255, 255, 255, 0.4);
-}
-
-form .input .grid .dropzone .allowed {
-    text-align: center;
-    font-size: 14px;
-    font-weight: 400;
-    color: rgba(255, 255, 255, 0.4);
-}
-
-form .input .grid .dropzone .allowed ul {
-    list-style: none;
-    display: flex;
-    gap: 5px;
-}
-
-form .input .grid .dropzone .allowed ul li {
-    padding: 4px 8px;
-    border-radius: 4px;
-    background-color: rgba(40, 40, 40, 0.4);
-}
-
-form .input .grid .dropzone .allowed p {
-    margin-top: 10px;
-}
-
-form .input .grid .showcase {
-    background-color: rgba(40, 40, 40, 1);
-    color: rgba(255, 255, 255, 1);
-    border-radius: 8px;
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-position: center;
-}
-
-form input[type="file"] {
-    font-size: 16px;
-    color: rgba(255, 255, 255, 1);
-}
-
-form input[type="file"]::file-selector-button {
-    all: unset;
-    cursor: pointer;
-    background-color: rgba(40, 40, 40, 1);
-    padding: 8px 16px;
-    border-radius: 4px;
-    margin-right: 20px;
-}
-
-form label {
-    font-weight: 600;
-    font-size: 18px;
-    color: rgba(255, 255, 255, 1);
-}
-
-form .input input,
-form .input textarea {
-    all: unset;
-    background-color: rgba(40, 40, 40, 1);
-    color: rgba(255, 255, 255, 1);
-    padding: 14px 18px;
-    border-radius: 8px;
-    box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0), 0px 5px 10px 0px rgba(0, 0, 0, 0);
-    transition-duration: 200ms;
-    white-space: pre-wrap;
-}
-
-form .input input::placeholder,
-form .input textarea::placeholder {
-    color: rgba(255, 255, 255, 0.4);
-}
-
-form .input input:focus,
-form .input textarea:focus {
-    transform: scale(1.02);
-    box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.05), 0px 5px 10px 0px rgba(0, 0, 0, 0.1);
-}
-
-form #submit {
-    background-color: rgba(82, 41, 123, 1);
-    color: rgba(255, 255, 255, 1);
-}
-
-form .error {
-    color: rgba(202, 65, 46, 1);
-    margin: 15px 0 0 0;
-}
-
-form .tooltip {
-    font-size: 12px;
-    color: rgba(255, 255, 255, 0.6);
 }
 
 /* dashboard */
@@ -395,7 +407,7 @@ form .tooltip {
 }
 
 #grid .post .author img {
-    height: 20px;
+    height: 30px;
     width: auto;
     border-radius: 50%;
 }
@@ -403,7 +415,7 @@ form .tooltip {
 #grid .post .author .username {
     font-size: 18px;
     font-weight: 600;
-    color: rgba(255, 255, 255, 0.6);
+    color: rgba(255, 255, 255, 0.8);
 }
 
 #grid .post .text {
@@ -429,44 +441,35 @@ form .tooltip {
     align-items: flex-end;
 }
 
-#grid .post .controls .timestamp {
+#grid .post .controls .timestamps .timestamp {
     font-size: 18px;
     font-weight: 600;
     color: rgba(255, 255, 255, 1);
 }
 
-#grid .post .controls .buttons {
+#grid .post .controls .timestamps .edited {
     display: flex;
-}
-
-#grid .post .controls .buttons .delete {
-    background-color: rgba(202, 65, 46, 1);
-    margin: 0 10px 0 0;
-}
-
-#grid .post .signature {
-    display: flex;
-    align-items: baseline;
-}
-
-#grid .post .edited {
-    display: inline-flex;
     align-items: center;
     gap: 5px;
     font-size: 14px;
     font-weight: 400;
-    background-color: rgba(20, 20, 20, 1);
     color: rgba(255, 255, 255, 0.6);
-    padding: 4px 8px;
-    border-radius: 8px;
-    margin-top: 10px;
+    margin-top: 5px;
 }
 
-#grid .post .edited svg {
+#grid .post .controls .timestamps .edited svg {
     height: 14px;
 }
 
-/*TODO: update activity list style names*/
+#grid .post .controls .buttons {
+    display: flex;
+    gap: 10px;
+}
+
+#grid .post .controls .buttons .delete {
+    background-color: rgba(202, 65, 46, 1);
+}
+
 /*users list*/
 #activity {
     padding: 25px;
