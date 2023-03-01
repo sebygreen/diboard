@@ -4,12 +4,21 @@ const app = () => {
     const input = document.querySelector(".file");
     const dropzone = document.querySelector(".dropzone");
     const showcase = document.querySelector(".showcase");
+    const info = document.querySelector(".allowed");
     const prevents = (e) => e.preventDefault();
 
     // onchange event
     input.addEventListener("change", (e) => {
+        let files = e.target.files;
+        // change info
+        console.log(info.children);
+
+        let size = document.createElement("p");
+        info.appendChild(size);
+        size.innerHTML = files[0].size;
+
         // change background image
-        if (e.target.files && e.target.files[0]) {
+        if (files && files[0]) {
             const reader = new FileReader();
             reader.onload = function (e) {
                 showcase.style.backgroundImage = "url(" + e.target.result + ")";
@@ -39,6 +48,11 @@ const app = () => {
     dropzone.addEventListener("drop", (e) => {
         input.files = e.dataTransfer.files;
         input.dispatchEvent(new Event("change"));
+    });
+
+    // click event
+    dropzone.addEventListener("click", () => {
+        input.click();
     });
 };
 
