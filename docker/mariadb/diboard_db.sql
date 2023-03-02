@@ -32,7 +32,7 @@ DROP TABLE IF EXISTS `posts`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `posts` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Post''s index',
-  `uuid` varchar(255) NOT NULL COMMENT 'Posts''s unique identifier',
+  `uuid` binary(16) NOT NULL COMMENT 'Posts''s unique identifier',
   `thumbnail` varchar(255) DEFAULT NULL COMMENT 'Optional thumbnail',
   `title` varchar(255) NOT NULL COMMENT 'Post''s title',
   `content` text NOT NULL COMMENT 'Post''s content',
@@ -64,7 +64,7 @@ DROP TABLE IF EXISTS `users`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'User''s index',
-  `uuid` varchar(255) NOT NULL COMMENT 'User''s unique identifier',
+  `uuid` binary(16) NOT NULL COMMENT 'User''s unique identifier',
   `username` varchar(255) DEFAULT NULL COMMENT 'User''s username',
   `email` varchar(255) DEFAULT NULL COMMENT 'User''s email',
   `password` varchar(255) DEFAULT NULL COMMENT 'User''s hashed password',
