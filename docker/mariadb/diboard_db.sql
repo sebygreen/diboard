@@ -39,7 +39,7 @@ CREATE TABLE `posts` (
   `pub_time` timestamp NOT NULL DEFAULT current_timestamp() COMMENT 'Post''s publication timestamp',
   `edit_time` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp() COMMENT 'Time of edit',
   `edited` tinyint(1) NOT NULL DEFAULT 0 COMMENT 'If post is edited',
-  `author` varchar(255) NOT NULL COMMENT 'Post''s author uuid',
+  `author` binary(16) NOT NULL COMMENT 'Post''s author uuid',
   PRIMARY KEY (`id`),
   UNIQUE KEY `uuid` (`uuid`) USING BTREE,
   CONSTRAINT `author` FOREIGN KEY (`author`) REFERENCES `users` (`uuid`) ON DELETE CASCADE ON UPDATE CASCADE
