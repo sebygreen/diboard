@@ -32,6 +32,7 @@ DROP TABLE IF EXISTS `posts`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `posts` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Post''s index',
+  `uuid` varchar(255) NOT NULL COMMENT 'Posts''s unique identifier',
   `thumbnail` varchar(255) DEFAULT NULL COMMENT 'Optional thumbnail',
   `title` varchar(255) NOT NULL COMMENT 'Post''s title',
   `content` text NOT NULL COMMENT 'Post''s content',
@@ -40,6 +41,7 @@ CREATE TABLE `posts` (
   `edited` tinyint(1) NOT NULL DEFAULT 0 COMMENT 'If post is edited',
   `author` varchar(255) NOT NULL COMMENT 'Post''s author uuid',
   PRIMARY KEY (`id`),
+  UNIQUE KEY `uuid` (`uuid`) USING BTREE,
   CONSTRAINT `author` FOREIGN KEY (`author`) REFERENCES `users` (`uuid`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
