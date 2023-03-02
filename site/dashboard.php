@@ -35,8 +35,9 @@ $User = new User($_SESSION["user"]);
                 </a>
             </header>
             <section id="grid">
-                <?php foreach ($sql_connection->query(
-                    'SELECT
+                <?php foreach (
+                    $sql_connection->query(
+                        'SELECT
                             posts.id,
                             posts.thumbnail,
                             posts.title,
@@ -51,9 +52,10 @@ $User = new User($_SESSION["user"]);
                             posts
                         INNER JOIN users ON posts.author = users.uuid
                         ORDER BY
-                            pub_time'
-                )
-                    as $row) { ?>
+                            pub_time DESC'
+                    )
+                    as $row
+                ) { ?>
                     <article class="post">
                         <?php if ($row["thumbnail"] !== null) { ?>
                             <div class="thumbnail">
@@ -110,16 +112,18 @@ $User = new User($_SESSION["user"]);
                 </a>
             </section>
             <section id="members">
-                <?php foreach ($sql_connection->query(
-                    'SELECT
+                <?php foreach (
+                    $sql_connection->query(
+                        'SELECT
                         username,
                         avatar
                     FROM
                         users
                     ORDER BY
                         username'
-                )
-                    as $row) { ?>
+                    )
+                    as $row
+                ) { ?>
                     <article class="user">
                         <div class="avatar" style="background-image: url('<?= $row["avatar"] ?>')"></div>
                         <div class="text">

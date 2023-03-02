@@ -129,9 +129,8 @@ form .input {
 }
 
 form .input input[type="file"] {
+    display: none;
     visibility: hidden;
-    position: absolute;
-    bottom: 0;
 }
 
 form .input .grid {
@@ -148,18 +147,25 @@ form .input .grid .dropzone {
     flex-direction: column;
     gap: 20px;
     border-radius: 8px;
-    box-shadow: inset 0px 0px 0px 2px rgba(255, 255, 255, 0.1);
+    background-color: rgba(40, 40, 40, 1);
+    box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0), 0px 5px 10px 0px rgba(0, 0, 0, 0);
     transition-duration: 200ms;
     cursor: pointer;
 }
 
 form .input .grid .dropzone.active,
-form .input .grid .dropzone:hover,
-form .input .grid .dropzone:focus,
-form .input .grid .dropzone:focus-visible {
-    outline: none;
-    box-shadow: inset 0px 0px 0px 2px rgba(255, 255, 255, 0.2);
+form .input .grid .dropzone:hover {
     transform: scale(1.02);
+    box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.1), 0px 5px 10px 0px rgba(0, 0, 0, 0.1);
+}
+
+form .input .grid .dropzone:focus {
+    transform: scale(1.02);
+    box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.1), 0px 5px 10px 0px rgba(0, 0, 0, 0.1);
+}
+
+form .input .grid .dropzone:focus-visible {
+    outline: 2px solid white;
 }
 
 form .input .grid .dropzone svg {
@@ -179,36 +185,52 @@ form .input .grid .dropzone:focus-visible svg {
     color: rgba(255, 255, 255, 0.6);
 }
 
-form .input .grid .dropzone .allowed {
-    text-align: center;
+form .input .grid .dropzone .details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
     font-size: 14px;
     font-weight: 400;
     color: rgba(255, 255, 255, 0.4);
 }
 
-form .input .grid .dropzone .allowed ul {
+form .input .grid .dropzone .details ul {
     list-style: none;
     display: flex;
     gap: 5px;
 }
 
-form .input .grid .dropzone .allowed ul li {
+form .input .grid .dropzone .details ul li {
     padding: 4px 8px;
     border-radius: 4px;
-    background-color: rgba(40, 40, 40, 0.4);
+    background-color: rgba(20, 20, 20, 1);
 }
 
-form .input .grid .dropzone .allowed p {
-    margin-top: 10px;
+form .input .grid .dropzone .details p {
+    max-width: 250px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 form .input .grid .showcase {
-    background-color: rgba(40, 40, 40, 1);
+    margin: 2px;
     color: rgba(255, 255, 255, 1);
     border-radius: 8px;
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 0px 0px 2px rgba(255, 255, 255, 0.1);
+}
+
+form .input .grid .showcase svg {
+    height: 40px;
+    width: auto;
+    opacity: 0.2;
 }
 
 form label {
@@ -383,7 +405,6 @@ form .error {
 
 #grid .post .thumbnail {
     margin: 0 0 20px 0;
-    background-color: rgba(255, 255, 255, 0.1);
     border-radius: 8px;
 }
 
