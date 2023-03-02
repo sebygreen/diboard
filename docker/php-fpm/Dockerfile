@@ -2,8 +2,8 @@ FROM php:8-fpm
 
 RUN apt-get update && apt-get upgrade -y
 COPY --from=composer/composer:latest-bin /composer /usr/bin/composer
-RUN apt-get install libgmp-dev git unzip -y
-RUN docker-php-ext-install pdo pdo_mysql gmp bcmath
+RUN apt-get install git unzip -y
+RUN docker-php-ext-install pdo pdo_mysql curl gmp bcmath
 
 WORKDIR /var/www/html
 COPY ../../site/composer.json .
