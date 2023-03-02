@@ -35,17 +35,16 @@ $User = new User($_SESSION["user"]);
                 </a>
             </header>
             <section id="grid">
-                <?php foreach (
-                    $sql_connection->query(
-                        'SELECT
-                            posts.uuid,
+                <?php foreach ($sql_connection->query(
+                    'SELECT
+                            BIN_TO_UUID(posts.uuid, 0) AS uuid,
                             posts.thumbnail,
                             posts.title,
                             posts.content,
                             posts.pub_time,
                             posts.edit_time,
                             posts.edited,
-                            posts.author,
+                            BIN_TO_UUID(posts.author, 0) AS author,
                             users.username,
                             users.avatar
                         FROM
@@ -53,9 +52,8 @@ $User = new User($_SESSION["user"]);
                         INNER JOIN users ON posts.author = users.uuid
                         ORDER BY
                             pub_time DESC'
-                    )
-                    as $row
-                ) { ?>
+                )
+                    as $row) { ?>
                     <article class="post">
                         <?php if ($row["thumbnail"] !== null) { ?>
                             <div class="thumbnail">
@@ -112,18 +110,16 @@ $User = new User($_SESSION["user"]);
                 </a>
             </section>
             <section id="members">
-                <?php foreach (
-                    $sql_connection->query(
-                        'SELECT
+                <?php foreach ($sql_connection->query(
+                    'SELECT
                         username,
                         avatar
                     FROM
                         users
                     ORDER BY
                         username'
-                    )
-                    as $row
-                ) { ?>
+                )
+                    as $row) { ?>
                     <article class="user">
                         <div class="avatar" style="background-image: url('<?= $row["avatar"] ?>')"></div>
                         <div class="text">

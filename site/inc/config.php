@@ -2,6 +2,7 @@
 if (!defined("__CONFIG__")) {
     exit("You do not have a config file");
 }
+
 // session start if none already
 if (!isset($_SESSION)) {
     session_start();
