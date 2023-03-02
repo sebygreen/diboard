@@ -72,7 +72,7 @@ CREATE TABLE `users` (
   `reg_time` timestamp NOT NULL DEFAULT current_timestamp() COMMENT 'Account registration timestamp',
   PRIMARY KEY (`id`),
   UNIQUE KEY `uuid` (`uuid`) USING BTREE,
-  UNIQUE KEY `email` (`email`)
+  UNIQUE KEY `email` (`email`) USING BTREE,
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='users table';
 /*!40101 SET character_set_client = @saved_cs_client */;
 

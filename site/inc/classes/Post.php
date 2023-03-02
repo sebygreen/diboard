@@ -15,7 +15,7 @@ class Post
 
     public function __construct($post_id)
     {
-        $this->sql_connection = DB::getConnection();
+        $this->sql_connection = Database::getConnection();
 
         $post_id = Filter::Integer($post_id);
 

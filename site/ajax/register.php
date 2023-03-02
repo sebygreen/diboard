@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 // file size validation (4mb hard limit)
                 if ($_FILES["avatar"]["size"] < 4000000) {
                     $temp = $_FILES["avatar"]["tmp_name"]; // temporary location where the file is being kept
-                    $filename = Uuid::uuid4() . "_" . Uuid::fromDateTime(date_create()) . "." . $extension; // uuid plus extension to create filename
+                    $filename = Uuid::fromDateTime(date_create()) . "." . $extension; // uuid plus extension to create filename
                     $upload_path = "../storage/avatars/" . $filename; // final upload path
                     $database_path = "storage/avatars/" . $filename; // final database path
 
@@ -49,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
                                     $uuid = Uuid::uuid4();
                                     $addUser = $sql_connection->prepare(
-                                        "INSERT INTO users(uuid, username, email, password, avatar) VALUES(:uuid, :username, LOWER(:email), :password, :avatar)"
+                                        "INSERT INTO users(uuid, username, email, password, avatar) VALUES(UUID_TO_BIN(:uuid), :username, LOWER(:email), :password, :avatar)"
                                     );
                                     $addUser->bindParam(":uuid", $uuid, PDO::PARAM_STR);
                                     $addUser->bindParam(":username", $username, PDO::PARAM_STR);
