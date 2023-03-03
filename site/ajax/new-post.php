@@ -37,7 +37,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         $content = $_POST["content"];
                         $content = Filter::String($content, true);
                         $addPost = $sql_connection->prepare(
-                            "INSERT INTO posts(uuid, thumbnail, title, content, author) VALUES(UUID_TO_BIN(:uuid, 0), :thumbnail, :title, :content, UUID_TO_BIN(:author, 0))"
+                            "INSERT INTO posts(uuid, thumbnail, title, content, author)
+                            VALUES(UUID_TO_BIN(:uuid, 0), :thumbnail, :title, :content, UUID_TO_BIN(:author, 0))"
                         );
                         $addPost->bindParam(":uuid", $uuid, PDO::PARAM_STR);
                         $addPost->bindParam(":thumbnail", $database_path, PDO::PARAM_STR);
@@ -61,7 +62,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // if no thumbnail, proceed without
             $title = Filter::String($_POST["title"]);
             $content = Filter::String($_POST["content"], true);
-            $addPost = $sql_connection->prepare("INSERT INTO posts(uuid, title, content, author) VALUES(UUID_TO_BIN(:uuid, 0), :title, :content, UUID_TO_BIN(:author, 0))");
+            $addPost = $sql_connection->prepare(
+                "INSERT INTO posts(uuid, title, content, author)
+                VALUES(UUID_TO_BIN(:uuid, 0), :title, :content, UUID_TO_BIN(:author, 0))"
+            );
             $addPost->bindParam(":uuid", $uuid, PDO::PARAM_STR);
             $addPost->bindParam(":title", $title, PDO::PARAM_STR);
             $addPost->bindParam(":content", $content, PDO::PARAM_STR);

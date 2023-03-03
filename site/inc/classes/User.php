@@ -26,7 +26,8 @@ class User
                 email,
                 reg_time
             FROM users
-            WHERE uuid = UUID_TO_BIN(:uuid, 0) LIMIT 1"
+            WHERE uuid = :uuid
+            LIMIT 1"
         );
         $user->bindParam(":uuid", $uuid, PDO::PARAM_INT);
         $user->execute();
@@ -34,7 +35,7 @@ class User
         // if user row exists
         if ($user->rowCount() == 1) {
             $user = $user->fetch(PDO::FETCH_OBJ);
-            $this->uuid = (string) $uuid;
+            $this->uuid = (string) $user->uuid;
             $this->username = (string) $user->username;
             $this->email = (string) $user->email;
             $this->reg_time = (string) $user->reg_time;
@@ -55,7 +56,8 @@ class User
                 BIN_TO_UUID(uuid, 0) AS uuid,
                 password
             FROM users
-            WHERE email = LOWER(:email) LIMIT 1"
+            WHERE email = LOWER(:email)
+            LIMIT 1"
         );
         $findEmail->bindParam(":email", $email, PDO::PARAM_STR);
         $findEmail->execute();
@@ -77,7 +79,8 @@ class User
                 BIN_TO_UUID(uuid, 0) AS uuid,
                 password
             FROM users
-            WHERE username = :username LIMIT 1"
+            WHERE username = :username
+            LIMIT 1"
         );
         $findUsername->bindParam(":username", $username, PDO::PARAM_STR);
         $findUsername->execute();

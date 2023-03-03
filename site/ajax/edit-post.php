@@ -24,29 +24,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (in_array($extension, $extensions)) {
                 // file size validation (4mb hard limit)
                 if ($_FILES["thumbnail"]["size"] < 4000000) {
-                    $tmp = $_FILES["thumbnail"]["tmp_name"]; // temporary location where the file is being kept
+                    $temp = $_FILES["thumbnail"]["tmp_name"]; // temporary location where the file is being kept
                     $filename = Uuid::uuid4() . "_" . Uuid::fromDateTime(date_create()) . "." . $extension; // uuid plus extension to create filename
                     $upload_path = "../storage/thumbnails/" . $filename; // final upload path
                     $database_path = "storage/thumbnails/" . $filename; // final database path
 
                     // copy file to storage on filesystem
-                    if (move_uploaded_file($tmp, $upload_path)) {
+                    if (move_uploaded_file($temp, $upload_path)) {
                         // when upload is complete, do the rest
-                        $post_id = Filter::Integer($_POST["post_id"]);
+                        $uuid = Filter::String($_POST["uuid"]);
                         $title = Filter::String($_POST["title"]);
                         $content = Filter::String($_POST["content"], true);
                         $edited = 1;
 
                         $addPost = $sql_connection->prepare(
-                            "UPDATE posts SET thumbnail = :thumbnail, title = :title, content = :content, edited = :edited WHERE id = :id"
+                            "UPDATE posts
+                            SET thumbnail = :thumbnail,
+                                title = :title,
+                                content = :content,
+                                edited = :edited
+                            WHERE uuid = UUID_TO_BIN(:uuid, 0)"
                         );
+                        $addPost->bindParam(":uuid", $uuid, PDO::PARAM_INT);
                         $addPost->bindParam(":thumbnail", $database_path, PDO::PARAM_STR);
                         $addPost->bindParam(":title", $title, PDO::PARAM_STR);
                         $addPost->bindParam(":content", $content, PDO::PARAM_STR);
                         $addPost->bindParam(":edited", $edited, PDO::PARAM_STR);
-                        $addPost->bindParam(":id", $post_id, PDO::PARAM_INT);
                         $addPost->execute();
-
+                        // redirect
                         $return["redirect"] = "/dashboard";
                     } else {
                         $return["error"] = "Image upload failed" . $_FILES["thumbnail"]["error"];
@@ -58,16 +63,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $return["error"] = "The selected file format is not supported";
             }
         } else {
-            $post_id = Filter::Integer($_POST["post_id"]);
+            $uuid = Filter::String($_POST["uuid"]);
             $title = Filter::String($_POST["title"]);
             $content = Filter::String($_POST["content"], true);
             $edited = 1;
 
-            $addPost = $sql_connection->prepare("UPDATE posts SET title = :title, content = :content, edited = :edited WHERE id = :id");
+            $addPost = $sql_connection->prepare(
+                "UPDATE posts
+                SET title = :title,
+                    content = :content,
+                    edited = :edited
+                WHERE uuid = UUID_TO_BIN(:uuid, 0)"
+            );
+            $addPost->bindParam(":uuid", $uuid, PDO::PARAM_INT);
             $addPost->bindParam(":title", $title, PDO::PARAM_STR);
             $addPost->bindParam(":content", $content, PDO::PARAM_STR);
             $addPost->bindParam(":edited", $edited, PDO::PARAM_STR);
-            $addPost->bindParam(":id", $post_id, PDO::PARAM_INT);
             $addPost->execute();
             // redirect
             $return["redirect"] = "/dashboard";

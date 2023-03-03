@@ -48,9 +48,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     // log user in
                                     $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
                                     $uuid = Uuid::uuid4();
-
+                                    // add user to database
                                     $addUser = $sql_connection->prepare(
-                                        "INSERT INTO users(uuid, username, email, password, avatar) VALUES(UUID_TO_BIN(:uuid, 0), :username, LOWER(:email), :password, :avatar)"
+                                        "INSERT INTO users(uuid, username, email, password, avatar)
+                                        VALUES(UUID_TO_BIN(:uuid, 0), :username, LOWER(:email), :password, :avatar)"
                                     );
                                     $addUser->bindParam(":uuid", $uuid, PDO::PARAM_STR);
                                     $addUser->bindParam(":username", $username, PDO::PARAM_STR);
@@ -58,10 +59,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     $addUser->bindParam(":password", $password, PDO::PARAM_STR);
                                     $addUser->bindParam(":avatar", $database_path, PDO::PARAM_STR);
                                     $addUser->execute();
-
+                                    // set user session
                                     $_SESSION["user"] = $uuid;
-                                    $return["redirect"] = "/dashboard";
+                                    //response
                                     $return["is_logged_in"] = true;
+                                    $return["redirect"] = "/dashboard";
                                 } else {
                                     $return["error"] = "Image failed to upload";
                                 }

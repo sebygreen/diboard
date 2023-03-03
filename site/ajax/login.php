@@ -17,20 +17,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $hash = (string) $user_found["password"];
 
             if (password_verify($password, $hash)) {
-                // user is signed in. set session and redirect
-                $return["redirect"] = "/dashboard";
+                // user is signed in. set session
                 $_SESSION["user"] = $uuid;
+                // redirect
+                $return["redirect"] = "/dashboard";
             } else {
-                $return["error"] = "Your email and/or password is incorrect"; // invalid user email/password combo
+                $return["error"] = "Your email and/or password is incorrect";
             }
         } else {
-            // they need to create a new account
             $return["error"] = "You do not have an account. <a href='/register.php'>Create one now?</a>";
         }
     } else {
         $return["error"] = "Please make sure all of the fields are filled in";
     }
-
+    // response
     echo json_encode($return, JSON_PRETTY_PRINT);
     exit();
 } else {

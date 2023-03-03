@@ -1,12 +1,12 @@
 // edit post
-$(document).on("submit", "form.js-edit-post", function (event) {
-    event.preventDefault();
+$(document).on("submit", "form.js-edit-post", function (e) {
+    e.preventDefault();
 
     const form = $(this);
     const error = $(".js-error", form); // error class
 
     const data = new FormData();
-    data.append("post_id", $("input[name='post_id']", form).val());
+    data.append("uuid", $("input[name='uuid']", form).val());
     data.append("thumbnail", $("input[name='thumbnail']")[0].files[0]);
     data.append("title", $("input[name='title']", form).val()); // title
     data.append("content", $("textarea[name='content']", form).val()); // content

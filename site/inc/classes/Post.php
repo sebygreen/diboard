@@ -7,7 +7,6 @@ class Post
 {
     private $sql_connection;
 
-    public $id;
     public $uuid;
     public $thumbnail;
     public $title;
@@ -21,7 +20,6 @@ class Post
 
         $post = $this->sql_connection->prepare(
             "SELECT
-                posts.id,
                 BIN_TO_UUID(posts.uuid, 0) AS uuid,
                 posts.thumbnail,
                 posts.title,
@@ -37,7 +35,6 @@ class Post
         // if post exists
         if ($post->rowCount() == 1) {
             $post = $post->fetch(PDO::FETCH_OBJ);
-            $this->id = (int) $post->id;
             $this->uuid = (string) $post->uuid;
             $this->thumbnail = (string) $post->thumbnail;
             $this->title = (string) $post->title;
@@ -45,15 +42,17 @@ class Post
             $this->author = (string) $post->author;
         } else {
             // no post
-            header("Location: /dashboard.php");
+            header("Location: /dashboard");
             exit();
         }
     }
 
-    public function deletePost(int $uuid)
+    public function deletePost($uuid)
     {
         // delete a post if user id is author
-        $post = $this->sql_connection->prepare("DELETE FROM posts WHERE uuid = UUID_TO_BIN(:uuid, 0) LIMIT 1");
+        $post = $this->sql_connection->prepare(
+            "DELETE FROM posts WHERE uuid = UUID_TO_BIN(:uuid, 0) LIMIT 1"
+        );
         $post->bindParam(":uuid", $uuid, PDO::PARAM_INT);
         $post->execute();
     }
