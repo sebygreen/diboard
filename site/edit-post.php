@@ -1,9 +1,11 @@
 <?php
 const __CONFIG__ = true;
 require_once "inc/config.php";
+
 Page::redirectToLogin();
-$post_id = $_GET["id"];
-$Post = new Post($post_id);
+
+$uuid = $_GET["uuid"];
+$Post = new Post($uuid);
 ?>
 
 <!DOCTYPE html>
@@ -28,7 +30,7 @@ $Post = new Post($post_id);
                 <img src="public/assets/images/logo-white.png" alt="diboard logo" />
             </div>
             <!-- HACK: using a get method doesn't allow use of the id in the back end, so i'm using a hidden input instead -->
-            <input type="hidden" name="post_id" value="<?php echo $post_id; ?>">
+            <input type="hidden" name="post_id" value="<?php $uuid; ?>">
             <div class="inputs">
                 <div class="input">
                     <label for="thumbnail">Thumbnail</label>

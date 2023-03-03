@@ -7,27 +7,38 @@ class Post
 {
     private $sql_connection;
 
-    public $post_id;
+    public $id;
+    public $uuid;
     public $thumbnail;
     public $title;
     public $content;
     public $author;
 
-    public function __construct($post_id)
+    public function __construct($uuid)
     {
         $this->sql_connection = Database::getConnection();
+        $uuid = Filter::String($uuid);
 
-        $post_id = Filter::Integer($post_id);
-
-        $post = $this->sql_connection->prepare("SELECT posts.id, posts.thumbnail, posts.title, posts.content, posts.author FROM posts WHERE id = :id LIMIT 1");
-        $post->bindParam(":id", $post_id, PDO::PARAM_INT);
+        $post = $this->sql_connection->prepare(
+            "SELECT
+                posts.id,
+                BIN_TO_UUID(posts.uuid, 0) AS uuid,
+                posts.thumbnail,
+                posts.title,
+                posts.content,
+                BIN_TO_UUID(posts.author, 0) AS author
+            FROM posts
+            WHERE uuid = :uuid
+            LIMIT 1"
+        );
+        $post->bindParam(":uuid", $uuid, PDO::PARAM_INT);
         $post->execute();
 
+        // if post exists
         if ($post->rowCount() == 1) {
-            // if user row exists
             $post = $post->fetch(PDO::FETCH_OBJ);
-
-            $this->post_id = (int) $post->id;
+            $this->id = (int) $post->id;
+            $this->uuid = (string) $post->uuid;
             $this->thumbnail = (string) $post->thumbnail;
             $this->title = (string) $post->title;
             $this->content = (string) $post->content;
@@ -39,11 +50,11 @@ class Post
         }
     }
 
-    public function deletePost(int $post_id)
+    public function deletePost(int $uuid)
     {
         // delete a post if user id is author
-        $post = $this->sql_connection->prepare("DELETE FROM posts WHERE id = :id LIMIT 1");
-        $post->bindParam(":id", $post_id, PDO::PARAM_INT);
+        $post = $this->sql_connection->prepare("DELETE FROM posts WHERE uuid = UUID_TO_BIN(:uuid, 0) LIMIT 1");
+        $post->bindParam(":uuid", $uuid, PDO::PARAM_INT);
         $post->execute();
     }
 }
