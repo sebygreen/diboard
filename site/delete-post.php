@@ -4,15 +4,16 @@ require_once "inc/config.php";
 
 $User = new User($_SESSION["user"]);
 
-if (isset($_GET["id"]) and is_numeric($_GET["id"])) {
-    $post_id = $_GET["id"];
-    $Post = new Post($post_id);
+$uuid = $_GET["uuid"];
 
-    if ($Post->thumbnail != null) {
+if (isset($uuid)) {
+    $Post = new Post($uuid);
+
+    if ($Post->thumbnail) {
         unlink($Post->thumbnail);
     }
 
-    $Post->deletePost($post_id);
+    $Post->deletePost($uuid);
     header("Location: /dashboard");
 }
 ?>

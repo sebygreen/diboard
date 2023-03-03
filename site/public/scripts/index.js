@@ -38,7 +38,9 @@ const app = () => {
             // change background once file is loaded
             reader.onload = function (e) {
                 // remove placeholder svg
-                placeholder.remove();
+                if (placeholder) {
+                    placeholder.remove();
+                }
                 // change background of showcase
                 showcase.style.backgroundImage = "url(" + e.target.result + ")";
             };

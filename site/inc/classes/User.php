@@ -12,27 +12,28 @@ class User
     public $email;
     public $reg_time;
 
+    // main construct for User
     public function __construct($uuid)
     {
+        //database
         $this->sql_connection = Database::getConnection();
-
-        // TODO: see if binary data type needs filter
+        // $uuid through string filter
         $uuid = Filter::String($uuid);
 
+        // query users using uuid as key
         $user = $this->sql_connection->prepare(
             "SELECT
                 BIN_TO_UUID(uuid, 0) AS uuid,
                 username,
                 email,
                 reg_time
-            FROM users
-            WHERE uuid = :uuid
-            LIMIT 1"
+            FROM users WHERE uuid = UUID_TO_BIN(:uuid, 0) LIMIT 1"
         );
-        $user->bindParam(":uuid", $uuid, PDO::PARAM_INT);
+        $user->bindParam(":uuid", $uuid, PDO::PARAM_STR);
         $user->execute();
 
-        // if user row exists
+        // check if query exists, if so, respond with user information for login
+        // else logout
         if ($user->rowCount() == 1) {
             $user = $user->fetch(PDO::FETCH_OBJ);
             $this->uuid = (string) $user->uuid;
@@ -40,24 +41,22 @@ class User
             $this->email = (string) $user->email;
             $this->reg_time = (string) $user->reg_time;
         } else {
-            // no user
-            header("Location: /logout.php");
+            header("Location: /logout");
             exit();
         }
     }
 
+    // function to check if an email exists
     public static function findEmail($email, $return_assoc = false)
     {
         $sql_connection = Database::getConnection();
-        // make sure the email does not exist.
         $email = (string) Filter::String($email);
+        // select all users using email as key
         $findEmail = $sql_connection->prepare(
             "SELECT
-                BIN_TO_UUID(uuid, 0) AS uuid,
+                BIN_TO_UUID(uuid, 0) AS converted_uuid,
                 password
-            FROM users
-            WHERE email = LOWER(:email)
-            LIMIT 1"
+            FROM users WHERE email = LOWER(:email) LIMIT 1"
         );
         $findEmail->bindParam(":email", $email, PDO::PARAM_STR);
         $findEmail->execute();
@@ -65,10 +64,10 @@ class User
         if ($return_assoc) {
             return $findEmail->fetch(PDO::FETCH_ASSOC);
         }
-
         return (bool) $findEmail->rowCount();
     }
 
+    // checks if username is taken
     public static function findUsername($username, $return_assoc = false)
     {
         $sql_connection = Database::getConnection();
@@ -76,11 +75,9 @@ class User
         $username = (string) Filter::String($username);
         $findUsername = $sql_connection->prepare(
             "SELECT
-                BIN_TO_UUID(uuid, 0) AS uuid,
+                BIN_TO_UUID(uuid, 0) AS converted_uuid,
                 password
-            FROM users
-            WHERE username = :username
-            LIMIT 1"
+            FROM users WHERE username = :username LIMIT 1"
         );
         $findUsername->bindParam(":username", $username, PDO::PARAM_STR);
         $findUsername->execute();
@@ -88,7 +85,7 @@ class User
         if ($return_assoc) {
             return $findUsername->fetch(PDO::FETCH_ASSOC);
         }
-
         return (bool) $findUsername->rowCount();
     }
 }
+?>

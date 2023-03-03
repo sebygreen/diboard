@@ -1,6 +1,7 @@
 <?php
 const __CONFIG__ = true;
 require_once "../inc/config.php";
+
 // composer autoload
 require_once "../vendor/autoload.php";
 // ramsey/uuid

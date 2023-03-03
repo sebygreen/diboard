@@ -59,11 +59,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     $addUser->bindParam(":password", $password, PDO::PARAM_STR);
                                     $addUser->bindParam(":avatar", $database_path, PDO::PARAM_STR);
                                     $addUser->execute();
+                                    // redirect
+                                    $return["redirect"] = "/dashboard";
                                     // set user session
                                     $_SESSION["user"] = $uuid;
-                                    //response
-                                    $return["is_logged_in"] = true;
-                                    $return["redirect"] = "/dashboard";
                                 } else {
                                     $return["error"] = "Image failed to upload";
                                 }

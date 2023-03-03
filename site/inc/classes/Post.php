@@ -20,16 +20,14 @@ class Post
 
         $post = $this->sql_connection->prepare(
             "SELECT
-                BIN_TO_UUID(posts.uuid, 0) AS uuid,
-                posts.thumbnail,
-                posts.title,
-                posts.content,
-                BIN_TO_UUID(posts.author, 0) AS author
-            FROM posts
-            WHERE uuid = :uuid
-            LIMIT 1"
+                BIN_TO_UUID(uuid, 0) AS uuid,
+                thumbnail,
+                title,
+                content,
+                BIN_TO_UUID(author, 0) AS author
+            FROM posts WHERE uuid = UUID_TO_BIN(:uuid, 0) LIMIT 1"
         );
-        $post->bindParam(":uuid", $uuid, PDO::PARAM_INT);
+        $post->bindParam(":uuid", $uuid, PDO::PARAM_STR);
         $post->execute();
 
         // if post exists
@@ -53,7 +51,7 @@ class Post
         $post = $this->sql_connection->prepare(
             "DELETE FROM posts WHERE uuid = UUID_TO_BIN(:uuid, 0) LIMIT 1"
         );
-        $post->bindParam(":uuid", $uuid, PDO::PARAM_INT);
+        $post->bindParam(":uuid", $uuid, PDO::PARAM_STR);
         $post->execute();
     }
 }
