@@ -1,12 +1,7 @@
-/**
-* This is a variable font
-* You can controll variable axes as shown below:
-* font-variation-settings: 'wght' 900.0;
-*
-* available axes:
-* 'wght' (range from 300.0 to 900.0)
-*/
+/*easings*/
+@import "https://unpkg.com/open-props/easings.min.css";
 
+/*local font*/
 @font-face {
     font-family: Satochi;
     src: url("../fonts/Satoshi.woff2") format("woff2"), url("../fonts/Satoshi.woff") format("woff"), url("../fonts/Satoshi.ttf") format("truetype");
@@ -15,41 +10,52 @@
     font-style: normal;
 }
 
-/**
-* This is a variable font
-* You can controll variable axes as shown below:
-* font-variation-settings: 'wght' 900.0;
-*
-* available axes:
-* 'wght' (range from 300.0 to 900.0)
-*/
-
 @font-face {
     font-family: Satochi;
-    src: url("../fonts/Satoshi Italic.woff2") format("woff2"), url("../fonts/Satoshi Italic.woff") format("woff"),
-        url("../fonts/Satoshi Italic.ttf") format("truetype");
+    src: url("../fonts/Satoshi Italic.woff2") format("woff2"), url("../fonts/Satoshi Italic.woff") format("woff"), url("../fonts/Satoshi Italic.ttf") format("truetype");
     font-weight: 300 900;
     font-display: swap;
     font-style: italic;
 }
 
+/*variables*/
+/*light mode first, then dark mode if setting*/
+:root {
+    color-scheme: light;
+    --bg: rgba(235, 235, 235, 1);
+    --bg-opaque: rgba(235, 235, 235, 0.8);
+    --button-bg: rgba(255, 255, 255, 1);
+    --button-bg-secondary: rgba(235, 235, 235, 1);
+    --fg: rgba(20, 20, 20, 1);
+    --fg-opaque: rgba(20, 20, 20, 0.4);
+    --fg-translucent: rgba(20, 20, 20, 0.1);
+    --shadow: 0px 5px 10px -5px rgba(0, 0, 0, 0);
+    --shadow-hover: 0px 5px 10px -5px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="dark"] {
+    color-scheme: dark;
+    --bg: rgba(20, 20, 20, 1);
+    --bg-opaque: rgba(20, 20, 20, 0.8);
+    --button-bg: rgba(40, 40, 40, 1);
+    --button-bg-secondary: rgba(60, 60, 60, 1);
+    --fg: rgba(255, 255, 255, 1);
+    --fg-opaque: rgba(255, 255, 255, 0.4);
+    --fg-translucent: rgba(255, 255, 255, 0.1);
+    --shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0), 0px 5px 10px 0px rgba(0, 0, 0, 0);
+    --shadow-hover: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.1), 0px 5px 10px 0px rgba(0, 0, 0, 0.1);
+}
+
 /*general styles & reset*/
 * {
-    font-family: Satochi, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
-        "Segoe UI Symbol";
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
     margin: 0;
     padding: 0;
 }
 
-textarea {
-    resize: none;
-}
-
 body {
-    background-color: rgba(20, 20, 20, 1);
-    color: rgba(255, 255, 255, 1);
+    font-family: Satochi, sans-serif;
+    background-color: var(--bg);
+    color: var(--fg);
 }
 
 button {
@@ -64,9 +70,13 @@ a {
     color: cornflowerblue;
 }
 
+textarea {
+    resize: none;
+}
+
 /*login, register & landing page container*/
 .content-container {
-    height: 100vh;
+    height: 100lvh;
     width: 100%;
     display: flex;
 }
@@ -74,14 +84,13 @@ a {
 /*components*/
 /*button*/
 .button {
-    border: none;
-    outline: none;
     font-size: 18px;
     font-weight: 600;
     padding: 14px 28px;
     border-radius: 8px;
-    text-decoration: none;
-    box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0), 0px 5px 10px 0px rgba(0, 0, 0, 0);
+    color: var(--fg);
+    background-color: var(--button-bg);
+    box-shadow: var(--shadow);
     transition-duration: 200ms;
 }
 
@@ -89,13 +98,11 @@ a {
 .button:focus,
 .button:focus-visible {
     transform: scale(1.05);
-    box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.1), 0px 5px 10px 0px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-hover);
 }
 
 /*icon button*/
 .icon {
-    border: none;
-    outline: none;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -103,9 +110,9 @@ a {
     width: 40px;
     border-radius: 8px;
     text-decoration: none;
-    color: rgba(255, 255, 255, 1);
-    background: rgba(255, 255, 255, 0.1);
-    box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0), 0px 5px 10px 0px rgba(0, 0, 0, 0);
+    color: var(--fg);
+    background-color: var(--button-bg);
+    box-shadow: var(--shadow);
     transition-duration: 200ms;
 }
 
@@ -118,15 +125,135 @@ a {
 .icon:focus,
 .icon:focus-visible {
     transform: scale(1.05);
-    box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.1), 0px 5px 10px 0px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-hover);
+}
+
+/*theme toggle*/
+.theme {
+    margin-left: auto;
+}
+
+.theme .toggle {
+    height: auto;
+    background-color: var(--fg-translucent);
+    width: 44px;
+    padding: 3px;
+    border-radius: 8px;
+}
+
+.theme .toggle .slider {
+    width: 22px;
+    height: 22px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--button-bg);
+    transition: transform 0.2s;
+}
+
+.theme .toggle .slider svg {
+    height: 16px;
+    width: 16px;
+}
+
+.theme .toggle .slider.toggled {
+    transform: translateX(22px);
+}
+
+/*theme toggle svg*/
+.theme .toggle .slider svg > :is(.moon, .sun, .beams) {
+    transform-origin: center center;
+}
+
+.theme .toggle .slider svg > :is(.moon, .sun) {
+    fill: var(--fg);
+}
+
+.theme .toggle .slider svg > .beams {
+    stroke: var(--fg);
+    stroke-width: 2px;
+}
+
+[data-theme="dark"] .theme .toggle .slider svg > .sun {
+    transform: scale(1.6);
+}
+
+[data-theme="dark"] .theme .toggle .slider svg > .beams {
+    opacity: 0;
+}
+
+[data-theme="dark"] .theme .toggle .slider svg > .moon > circle {
+    transform: translate(-7px);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .theme .toggle .slider svg > .sun {
+        transition: transform 0.5s var(--ease-elastic-3);
+    }
+
+    .theme .toggle .slider svg > .beams {
+        transition: transform 0.5s var(--ease-elastic-4), opacity 0.5s;
+    }
+
+    .theme .toggle .slider svg .moon > circle {
+        transition: transform 0.25s var(--ease-out-5);
+    }
+
+    [data-theme="dark"] .theme .toggle .slider svg > .sun {
+        transform: scale(1.6);
+        transition-timing-function: var(--ease-3);
+        transition-duration: 0.25s;
+    }
+
+    [data-theme="dark"] .theme .toggle .slider svg > .beams {
+        transform: rotate(-25deg);
+        transition-duration: 0.15s;
+    }
+
+    [data-theme="dark"] .theme .toggle .slider svg > .moon > circle {
+        transition-delay: 0.25s;
+        transition-duration: 0.5s;
+    }
+}
+
+#overlays.active {
+    opacity: 1;
+}
+
+#overlays {
+    display: none;
+    opacity: 0;
+    height: 100lvh;
+    width: 100%;
+    position: absolute;
+    overflow-x: hidden;
+    background-color: rgba(20, 20, 20, 0.4);
+    z-index: 1;
+}
+
+#edit.active {
+    opacity: 1;
+    transform: translateY(0px);
+}
+
+#edit {
+    display: none;
+    opacity: 0;
+    transform: translateY(-100px);
+    background-color: var(--bg);
+    margin: auto;
+    overflow-x: auto;
+    max-width: 960px;
+    margin: auto;
+    padding: 40px;
+    border-radius: 16px;
+    transition: opacity, transform 0.4s cubic-bezier(0.83, 0, 0.17, 1);
 }
 
 /* forms */
 form {
     width: 100%;
-    max-width: 480px;
-    margin: auto;
-    padding: 40px;
 }
 
 form .titlebar {
@@ -139,7 +266,7 @@ form .titlebar {
 form .titlebar h2 {
     font-size: 32px;
     font-weight: 600;
-    color: rgba(255, 255, 255, 1);
+    color: var(--fg);
 }
 
 form .titlebar img {
@@ -150,27 +277,37 @@ form .titlebar img {
 
 form .inputs {
     display: grid;
-    grid-template-columns: auto;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+form .inputs .left {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+form .inputs .right {
+    display: grid;
     grid-template-rows: repeat(min-content);
     gap: 20px;
-    margin-bottom: 40px;
 }
 
 form .input {
+    position: relative;
     display: grid;
     grid-template-columns: repeat(min-content);
     gap: 10px;
-    position: relative;
 }
 
+/*HACK: hidden file input handled only via javascript*/
 form .input input[type="file"] {
     display: none;
-    visibility: hidden;
 }
 
 form .input .grid {
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 1fr max-content;
     gap: 20px;
 }
 
@@ -182,30 +319,23 @@ form .input .grid .dropzone {
     flex-direction: column;
     gap: 20px;
     border-radius: 8px;
-    background-color: rgba(40, 40, 40, 1);
-    box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0), 0px 5px 10px 0px rgba(0, 0, 0, 0);
+    background-color: var(--button-bg);
+    box-shadow: var(--shadow);
     transition-duration: 200ms;
     cursor: pointer;
 }
 
 form .input .grid .dropzone.active,
-form .input .grid .dropzone:hover {
-    transform: scale(1.02);
-    box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.1), 0px 5px 10px 0px rgba(0, 0, 0, 0.1);
-}
-
-form .input .grid .dropzone:focus {
-    transform: scale(1.02);
-    box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.1), 0px 5px 10px 0px rgba(0, 0, 0, 0.1);
-}
-
+form .input .grid .dropzone:hover,
+form .input .grid .dropzone:focus,
 form .input .grid .dropzone:focus-visible {
-    outline: 2px solid white;
+    transform: scale(1.02);
+    box-shadow: var(--shadow-hover);
 }
 
 form .input .grid .dropzone svg {
     height: 40px;
-    color: rgba(255, 255, 255, 0.2);
+    color: var(--fg-translucent);
     transition-duration: 200ms;
 }
 
@@ -217,7 +347,7 @@ form .input .grid .dropzone.active svg,
 form .input .grid .dropzone:hover svg,
 form .input .grid .dropzone:focus svg,
 form .input .grid .dropzone:focus-visible svg {
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--fg-opaque);
 }
 
 form .input .grid .dropzone .details {
@@ -227,7 +357,7 @@ form .input .grid .dropzone .details {
     gap: 10px;
     font-size: 14px;
     font-weight: 400;
-    color: rgba(255, 255, 255, 0.4);
+    color: var(--fg-opaque);
 }
 
 form .input .grid .dropzone .details ul {
@@ -239,7 +369,7 @@ form .input .grid .dropzone .details ul {
 form .input .grid .dropzone .details ul li {
     padding: 4px 8px;
     border-radius: 4px;
-    background-color: rgba(20, 20, 20, 1);
+    background-color: var(--bg);
 }
 
 form .input .grid .dropzone .details p {
@@ -259,56 +389,60 @@ form .input .grid .showcase {
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 0px 0px 0px 2px rgba(255, 255, 255, 0.1);
+    box-shadow: 0px 0px 0px 2px var(--fg-translucent);
+    height: 130px;
+    width: 130px;
 }
 
 form .input .grid .showcase svg {
-    height: 40px;
+    height: 52px;
     width: auto;
-    opacity: 0.2;
+    color: var(--fg-translucent);
 }
 
 form label {
     font-weight: 600;
     font-size: 18px;
-    color: rgba(255, 255, 255, 1);
+    color: var(--fg);
 }
 
 form .tooltip {
     font-size: 12px;
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--fg-opaque);
 }
 
 form .input input,
 form .input textarea {
     all: unset;
-    background-color: rgba(40, 40, 40, 1);
-    color: rgba(255, 255, 255, 1);
+    background-color: var(--button-bg);
+    color: var(--fg);
     padding: 14px 18px;
     border-radius: 8px;
-    box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0), 0px 5px 10px 0px rgba(0, 0, 0, 0);
+    box-shadow: var(--shadow);
     transition-duration: 200ms;
     white-space: pre-wrap;
 }
 
 form .input input::placeholder,
 form .input textarea::placeholder {
-    color: rgba(255, 255, 255, 0.4);
+    color: var(--fg-opaque);
 }
 
 form .input input:focus,
 form .input textarea:focus {
     transform: scale(1.02);
-    box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.1), 0px 5px 10px 0px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-hover);
 }
 
 form #submit {
+    margin-right: auto;
     background-color: rgba(82, 41, 123, 1);
     color: rgba(255, 255, 255, 1);
 }
 
 form .error {
     color: rgba(202, 65, 46, 1);
+    font-weight: 600;
     margin: 10px 0;
 }
 
@@ -328,21 +462,21 @@ form .error {
 #landing h1 {
     font-size: 32px;
     font-weight: 200;
-    color: rgba(255, 255, 255, 0.4);
+    color: var(--fg-opaque);
     margin-bottom: 5px;
 }
 
 #landing h1 span {
     opacity: 1;
     font-weight: 600;
-    color: rgba(255, 255, 255, 1);
+    color: var(--fg);
 }
 
 #landing h3 {
-    font-size: 18px;
-    font-weight: 400;
-    color: rgba(255, 255, 255, 1);
+    font-size: 16px;
+    font-weight: 600;
     margin-bottom: 40px;
+    color: var(--fg);
 }
 
 #landing #buttons {
@@ -356,14 +490,9 @@ form .error {
     color: rgba(255, 255, 255, 1);
 }
 
-#landing #buttons #register {
-    background-color: rgba(40, 40, 40, 1);
-    color: rgba(255, 255, 255, 1);
-}
-
 /* dashboard */
 #dashboard {
-    height: 100vh;
+    height: 100lvh;
     width: 100%;
     display: grid;
     grid-template-columns: min-content 1fr min-content;
@@ -377,7 +506,7 @@ form .error {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    padding: 25px;
+    padding: 20px;
     background-color: rgba(82, 41, 123, 1);
 }
 
@@ -392,32 +521,21 @@ form .error {
     overflow-x: auto;
 }
 
-#grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: min-content 1fr;
-}
-
 #titlebar {
     position: sticky;
     top: 0;
     display: flex;
     align-items: center;
-    padding: 25px;
-    background-color: rgba(20, 20, 20, 0.6);
-    backdrop-filter: blur(15px);
+    padding: 20px;
+    background-color: var(--bg-opaque);
+    backdrop-filter: blur(20px);
 }
 
 #titlebar h2 {
     font-size: 32px;
     font-weight: 600;
-    color: rgba(255, 255, 255, 1);
+    color: var(--fg);
     margin: 0 20px 0 0;
-}
-
-#titlebar #new-post {
-    background-color: rgba(44, 44, 44, 1);
-    color: rgba(255, 255, 255, 1);
 }
 
 /*main grid*/
@@ -432,7 +550,7 @@ form .error {
 /*post*/
 #grid .post {
     padding: 20px;
-    background-color: rgba(40, 40, 40, 1);
+    background-color: var(--button-bg);
     border-radius: 16px;
     box-sizing: border-box;
     height: auto;
@@ -465,7 +583,7 @@ form .error {
 #grid .post .author .username {
     font-size: 18px;
     font-weight: 600;
-    color: rgba(255, 255, 255, 0.8);
+    color: var(--fg-opaque);
 }
 
 #grid .post .text {
@@ -475,14 +593,14 @@ form .error {
 #grid .post .text h2 {
     font-size: 28px;
     font-weight: 600;
-    color: rgba(255, 255, 255, 1);
+    color: var(--fg);
     margin: 0 0 10px 0;
 }
 
 #grid .post .text p {
     font-size: 16px;
     font-weight: 400;
-    color: rgb(169, 169, 169);
+    color: var(--fg);
 }
 
 #grid .post .controls {
@@ -494,7 +612,7 @@ form .error {
 #grid .post .controls .timestamps .timestamp {
     font-size: 18px;
     font-weight: 600;
-    color: rgba(255, 255, 255, 1);
+    color: var(--fg);
 }
 
 #grid .post .controls .timestamps .edited {
@@ -503,8 +621,7 @@ form .error {
     gap: 5px;
     font-size: 14px;
     font-weight: 400;
-    color: rgba(255, 255, 255, 0.6);
-    margin-top: 5px;
+    color: var(--fg-opaque);
 }
 
 #grid .post .controls .timestamps .edited svg {
@@ -518,22 +635,28 @@ form .error {
 
 #grid .post .controls .buttons .delete {
     background-color: rgba(202, 65, 46, 1);
+    color: rgba(255, 255, 255, 1);
+}
+
+#grid .post .controls .buttons .edit {
+    background-color: var(--button-bg-secondary);
 }
 
 /*users list*/
 #activity {
-    padding: 25px;
+    padding: 20px;
 }
 
 #activity .titlebar {
     display: flex;
+    align-items: center;
     gap: 40px;
 }
 
 #activity .titlebar h2 {
     font-size: 32px;
     font-weight: 600;
-    color: rgba(255, 255, 255, 1);
+    color: var(--fg);
 }
 
 #members {
@@ -564,12 +687,12 @@ form .error {
 
 #members .user .text p {
     font-size: 12px;
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--fg-opaque);
     min-width: 80px;
 }
 
 #members .user .text h5 {
     font-size: 18px;
     font-weight: 600;
-    color: rgba(255, 255, 255, 1);
+    color: var(--fg);
 }
