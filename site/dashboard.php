@@ -126,6 +126,11 @@ $User = new User($_SESSION["user"]);
                 </div>
             </header>
             <section id="grid">
+                <div class="loader" style="display: flex; opacity: 1">
+                    <span class="ball"></span>
+                    <span class="ball"></span>
+                    <span class="ball"></span>
+                </div>
                 <?php foreach ($sql_connection->query(
                     'SELECT
                             BIN_TO_UUID(posts.uuid, 0) AS uuid,

@@ -8,6 +8,6 @@
 <!-- jquery -->
 <script defer src="public/scripts/jquery/jquery.min.js"></script>
 <!-- main scripts -->
-<script defer src="public/scripts/main.js"></script>
+<script defer type="module" src="public/scripts/main.js"></script>
 <script defer src="public/scripts/ajax.js"></script>
 <script defer src="public/scripts/anime/lib/anime.min.js"></script>

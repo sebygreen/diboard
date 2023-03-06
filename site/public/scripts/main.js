@@ -1,3 +1,23 @@
+import getPosts from "./fetch.js";
+
+const refreshPosts = () => {
+    const grid = $("section#grid");
+    const loader = $("section#grid .loader");
+
+    getPosts((data) => callback(data));
+
+    const callback = (data) => {
+        console.log(data.posts);
+        let posts = data.posts;
+        posts.forEach((post) => {
+            console.log(post.uuid);
+            console.log(post.thumbnail);
+        });
+    };
+};
+
+refreshPosts();
+
 // new post
 $(document).on("submit", "form.js-new-post", function (event) {
     event.preventDefault();

@@ -7,18 +7,13 @@ class Posts
 {
     private $sql_connection;
 
-    public $uuid;
-    public $thumbnail;
-    public $title;
-    public $content;
-    public $author;
+    public $posts;
 
-    public function __construct($uuid)
+    public function __construct()
     {
         $this->sql_connection = Database::getConnection();
-        $uuid = Filter::String($uuid);
 
-        $posts = $this->$sql_connection->query(
+        $posts = $this->sql_connection->query(
             'SELECT
                     BIN_TO_UUID(posts.uuid, 0) AS uuid,
                     posts.thumbnail,
@@ -34,21 +29,15 @@ class Posts
                 INNER JOIN users ON posts.author = users.uuid
                 ORDER BY pub_time DESC'
         );
-        $posts->bindParam(":uuid", $uuid, PDO::PARAM_STR);
-        $posts->execute();
-
-        // if post exists
-        if ($posts->rowCount() == 1) {
-            $post = $posts->fetch(PDO::FETCH_OBJ);
-            $this->uuid = (string) $post->uuid;
-            $this->thumbnail = (string) $post->thumbnail;
-            $this->title = (string) $post->title;
-            $this->content = (string) $post->content;
-            $this->author = (string) $post->author;
+        // if posts exists
+        if ($posts) {
+            $posts = $posts->fetchAll(PDO::FETCH_ASSOC);
+            $this->posts = (array) $posts;
         } else {
-            // no post
+            // no posts
             header("Location: /dashboard");
             exit();
         }
     }
 }
+?>
