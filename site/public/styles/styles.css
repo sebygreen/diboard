@@ -22,10 +22,11 @@
 /*light mode first, then dark mode if setting*/
 :root {
     color-scheme: light;
-    --bg: rgba(235, 235, 235, 1);
-    --bg-opaque: rgba(235, 235, 235, 0.8);
+    --bg-primary: rgba(225, 225, 225, 1);
+    --bg-secondary: rgba(235, 235, 235, 1);
+    --bg-opaque: rgba(225, 225, 225, 0.8);
     --button-bg: rgba(255, 255, 255, 1);
-    --button-bg-secondary: rgba(235, 235, 235, 1);
+    --slider-bg: rgba(255, 255, 255, 1);
     --fg: rgba(20, 20, 20, 1);
     --fg-opaque: rgba(20, 20, 20, 0.4);
     --fg-translucent: rgba(20, 20, 20, 0.1);
@@ -35,10 +36,11 @@
 
 [data-theme="dark"] {
     color-scheme: dark;
-    --bg: rgba(20, 20, 20, 1);
+    --bg-primary: rgba(20, 20, 20, 1);
+    --bg-secondary: rgba(30, 30, 30, 1);
     --bg-opaque: rgba(20, 20, 20, 0.8);
-    --button-bg: rgba(40, 40, 40, 1);
-    --button-bg-secondary: rgba(60, 60, 60, 1);
+    --button-bg: rgba(50, 50, 50, 1);
+    --slider-bg: rgba(50, 50, 50, 1);
     --fg: rgba(255, 255, 255, 1);
     --fg-opaque: rgba(255, 255, 255, 0.4);
     --fg-translucent: rgba(255, 255, 255, 0.1);
@@ -54,7 +56,7 @@
 
 body {
     font-family: Satochi, sans-serif;
-    background-color: var(--bg);
+    background-color: var(--bg-primary);
 }
 
 button {
@@ -89,22 +91,22 @@ textarea {
     width: 12px;
     height: 12px;
     border-radius: 50%;
-    animation: keyframes 1s infinite ease-in-out;
+    animation: keyframes 1.2s infinite ease-in-out;
 }
 
-.loader .ball:first-child {
-    animation-delay: -0.1s;
-}
-
-.loader .ball:last-child {
+.loader .ball:nth-child(2) {
     animation-delay: 0.1s;
+}
+
+.loader .ball:nth-child(3) {
+    animation-delay: 0.2s;
 }
 
 @keyframes keyframes {
     0% {
         scale: 0.2;
     }
-    25% {
+    33% {
         scale: 1;
     }
     100% {
@@ -173,16 +175,17 @@ textarea {
 
 .theme .toggle {
     height: auto;
-    background-color: var(--fg-translucent);
+    background-color: var(--bg-secondary);
     width: 44px;
     padding: 3px;
-    border-radius: 8px;
+    border-radius: 15.5px;
+    overflow: hidden;
 }
 
 .theme .toggle .slider {
     width: 22px;
     height: 22px;
-    border-radius: 5px;
+    border-radius: 11px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -222,7 +225,7 @@ textarea {
 }
 
 [data-theme="dark"] .theme .toggle .slider svg > .moon > circle {
-    transform: translate(-7px);
+    transform: translate(-6px, 6px);
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -256,7 +259,6 @@ textarea {
 }
 
 #overlays {
-    pointer-events: none;
     height: 100lvh;
     width: 100%;
     position: absolute;
@@ -266,14 +268,13 @@ textarea {
     background-color: var(--bg-opaque);
 }
 
-#edit {
+#overlays section.edit {
     position: relative;
     overflow-x: auto;
     margin: auto;
     padding: 40px;
     border-radius: 16px;
-    background-color: var(--bg-opaque);
-    backdrop-filter: blur(20px);
+    background-color: var(--bg-secondary);
 }
 
 /* forms */
@@ -314,13 +315,14 @@ form .inputs {
     gap: 20px;
 }
 
-form .inputs .left {
+form .inputs .right {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    align-items: flex-end;
 }
 
-form .inputs .right {
+form .inputs .left {
     display: grid;
     grid-template-rows: repeat(min-content);
     gap: 20px;
@@ -402,7 +404,7 @@ form .input .grid .dropzone .details ul {
 form .input .grid .dropzone .details ul li {
     padding: 4px 8px;
     border-radius: 4px;
-    background-color: var(--bg);
+    background-color: var(--bg-secondary);
 }
 
 form .input .grid .dropzone .details p {
@@ -468,7 +470,6 @@ form .input textarea:focus {
 }
 
 form #submit {
-    margin-right: auto;
     background-color: rgba(82, 41, 123, 1);
     color: rgba(255, 255, 255, 1);
 }
@@ -583,7 +584,7 @@ form .error {
 /*post*/
 #grid .post {
     padding: 20px;
-    background-color: var(--button-bg);
+    background-color: var(--bg-secondary);
     border-radius: 16px;
     box-sizing: border-box;
     height: auto;
@@ -671,13 +672,10 @@ form .error {
     color: rgba(255, 255, 255, 1);
 }
 
-#grid .post .controls .buttons .edit {
-    background-color: var(--button-bg-secondary);
-}
-
 /*users list*/
 #activity {
     padding: 20px;
+    background-color: var(--bg-secondary);
 }
 
 #activity .titlebar {

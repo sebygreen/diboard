@@ -1,28 +1,71 @@
 // get single post
-const getPost = (e, uuid) => {
-    e.preventDefault();
+const openEdit = (uuid) => {
     const url = "/edit-post?uuid=" + uuid;
-    const form = $("form#edit-post");
-    const wrapper = $("#overlays");
-    const edit = $("#edit");
 
-    edit.toggleClass("active");
-    wrapper.css("pointer-events", "all");
+    const wrapper = $("#overlays");
+    const edit = $("#overlays section.edit");
+    const form = $("#overlays section.edit form.edit");
+    const loader = $("#overlays .loader");
+    const placeholder = $(".showcase svg");
+
+    const getPost = () => {
+        wrapper.css("pointer-events", "all");
+        $.ajax({
+            type: "GET",
+            url: "/edit-post?uuid=" + uuid,
+            dataType: "json",
+            async: true,
+        })
+            .done(function (data) {
+                loadingComplete(data);
+            })
+            .fail(function (e) {
+                console.log(e);
+                return e;
+            });
+    };
+
+    const loadingComplete = (data) => {
+        // if thumbnail exists
+        if (data.thumbnail) {
+            $(".showcase").css("background-image", "url(" + data.thumbnail + ")");
+        }
+        $("input[name='title']", form).val(data.title);
+        $("textarea[name='content']", form).val(data.content);
+        // animate loader
+        let loadingComplete = anime
+            .timeline({
+                duration: 200,
+            })
+            .add({
+                targets: loader.get(),
+                opacity: 0,
+                easing: "linear",
+                complete: () => loader.hide(),
+            })
+            .add(
+                {
+                    targets: form.get(),
+                    opacity: 1,
+                    easing: "linear",
+                    complete: () => form.toggleClass("disabled"),
+                },
+                0
+            );
+    };
 
     var open = anime
         .timeline({
             duration: 200,
         })
         .add({
-            targets: "#overlays",
+            targets: wrapper.get(),
             opacity: 1,
             easing: "linear",
-            complete: () => {
-                edit.css("display", "flex");
-            },
+            complete: () => edit.css("display", "flex"),
         })
         .add({
-            targets: "#edit",
+            targets: edit.get(),
             translateY: {
                 value: 0,
                 easing: "cubicBezier(0.83, 0, 0.17, 1)",
@@ -31,47 +74,61 @@ const getPost = (e, uuid) => {
                 value: 1,
                 easing: "linear",
             },
-        })
-        .add({
-            targets: ".loader",
-            opacity: 1,
-            easing: "linear",
-            complete: () => {
-                $.ajax({
-                    type: "GET",
-                    url: "/edit-post?uuid=" + uuid,
-                    dataType: "json",
-                    async: true,
-                })
-                    .done(function (data) {
-                        $(".loader").hide();
-                        anime({
-                            targets: "form#edit-post",
-                            duration: 100,
-                            opacity: 1,
-                            easing: "linear",
-                            complete: () => {
-                                form.toggleClass("disabled");
-                            },
-                        });
-                        if (data.thumbnail) {
-                            $(".showcase").css("background-image", "url(" + data.thumbnail + ")");
-                        }
-                        $("input[name='title']", form).val(data.title);
-                        $("textarea[name='content']", form).val(data.content);
-                    })
-                    .fail(function (e) {
-                        console.log(e);
-                    });
-            },
+            complete: () => getPost(),
         });
 };
 
-// edit post submit
-$("form#edit-post").on("submit", (e) => {
-    e.preventDefault();
+const closeEdit = () => {
+    const wrapper = $("#overlays");
+    const edit = $("#overlays section.edit");
+    const form = $("#overlays section.edit form.edit");
+    const loader = $("#overlays .loader");
+    const placeholder = $(".showcase svg");
+    const showcase = $(".showcase");
 
-    const form = $(this);
+    const closeComplete = () => {
+        showcase.css("background-image", "");
+        $("input[name='title']", form).val("");
+        $("textarea[name='content']", form).val("");
+        placeholder.show();
+    };
+
+    wrapper.css("pointer-events", "none");
+    var close = anime
+        .timeline({
+            duration: 200,
+        })
+        .add({
+            targets: edit.get(),
+            translateY: {
+                value: -10,
+                easing: "cubicBezier(0.83, 0, 0.17, 1)",
+            },
+            opacity: {
+                value: 0,
+                easing: "linear",
+            },
+            complete: () => {
+                edit.hide();
+                form.toggleClass("disabled");
+                form.css("opacity", 0.4);
+            },
+        })
+        .add({
+            targets: wrapper.get(),
+            opacity: 0,
+            easing: "linear",
+            complete: () => closeComplete(),
+        });
+
+    return false;
+};
+
+// edit post submit
+$("form.edit").on("submit", (e) => {
+    console.log("submitted");
+    e.preventDefault();
+    const form = $(e.target);
     const error = $(".js-error", form); // error class
 
     const data = new FormData();
@@ -92,10 +149,10 @@ $("form#edit-post").on("submit", (e) => {
         async: true,
     })
         .done(function (data) {
-            if (data.redirect !== undefined) {
-                window.location = data.redirect;
-            } else if (data.error !== undefined) {
+            if (data.error) {
                 error.text(data.error).show();
+            } else {
+                closeEdit();
             }
         })
         .fail(function (e) {

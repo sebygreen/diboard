@@ -55,7 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         // destroy post uuid session
                         unset($_SESSION["post"]);
                         // redirect
-                        $return["redirect"] = "/dashboard";
+                        $return["success"] = true;
                     } else {
                         $return["error"] = "Image upload failed";
                     }
