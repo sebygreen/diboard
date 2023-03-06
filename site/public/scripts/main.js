@@ -35,7 +35,7 @@ $(document).on("submit", "form.js-new-post", function (event) {
     $.ajax({
         // post the register form data to the api for saving
         type: "POST",
-        url: "/ajax/new-post.php",
+        url: "/api/new-post.php",
         data: data,
         processData: false,
         contentType: false,
@@ -75,7 +75,7 @@ $(document).on("submit", "form.js-login", function (event) {
     $.ajax({
         // post the login form data to the api for saving
         type: "POST",
-        url: "/ajax/login.php",
+        url: "/api/login.php",
         data: data,
         dataType: "json",
         async: true,
@@ -112,7 +112,7 @@ $(document).on("submit", "form.js-register", function (event) {
     $.ajax({
         // post the register form data to the api for saving
         type: "POST",
-        url: "/ajax/register.php",
+        url: "/api/register.php",
         data: data,
         processData: false,
         contentType: false,

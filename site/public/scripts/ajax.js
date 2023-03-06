@@ -141,7 +141,7 @@ $("form.edit").on("submit", (e) => {
     $.ajax({
         // post the register form data to the api for saving
         type: "POST",
-        url: "/ajax/edit-post",
+        url: "/api/edit-post",
         data: data,
         processData: false,
         contentType: false,
