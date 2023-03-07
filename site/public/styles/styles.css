@@ -588,17 +588,19 @@ form .error {
     background-color: var(--bg-secondary);
     border-radius: 16px;
     box-sizing: border-box;
-    height: auto;
 }
 
 #grid .post .thumbnail {
+    position: relative;
     margin: 0 0 20px 0;
     border-radius: 8px;
 }
 
 #grid .post .thumbnail img {
-    height: auto;
+    max-height: 240px;
+    height: 100%;
     width: 100%;
+    object-fit: contain;
     border-radius: 8px;
 }
 

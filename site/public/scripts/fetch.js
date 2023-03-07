@@ -1,8 +1,8 @@
 export default async function getPosts(callback) {
-    await fetch("/posts")
+    await fetch("/api/posts")
         .then((response) => {
             if (response.ok) {
-                return response.json();
+                return response.text();
             } else {
                 throw new Error("Bad Server Response! Response: " + response.status);
             }
@@ -12,7 +12,7 @@ export default async function getPosts(callback) {
             return data;
         })
         .catch((error) => {
-            console.error("ERROR: Failed to get posts...");
+            console.error("ERROR: Failed to get posts...", error);
             return error;
         });
 }
