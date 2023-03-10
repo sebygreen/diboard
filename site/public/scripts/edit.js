@@ -1,60 +1,14 @@
-// get single post
-const openEdit = (uuid) => {
-    const url = "/edit-post?uuid=" + uuid;
+import { getPost } from "./fetch.js";
 
-    const wrapper = $("#overlays");
-    const edit = $("#overlays section.edit");
-    const form = $("#overlays section.edit form.edit");
-    const loader = $("#overlays .loader");
-    const placeholder = $(".showcase svg");
+const wrapper = $("#overlays");
+const edit = $("#overlays section.edit");
+const form = $("#overlays section.edit form.edit");
+const loader = $("#overlays .loader");
+const placeholder = $(".showcase svg");
 
-    const getPost = () => {
-        wrapper.css("pointer-events", "all");
-        $.ajax({
-            type: "GET",
-            url: "/edit-post?uuid=" + uuid,
-            dataType: "json",
-            async: true,
-        })
-            .done(function (data) {
-                loadingComplete(data);
-            })
-            .fail(function (e) {
-                console.log(e);
-                return e;
-            });
-    };
-
-    const loadingComplete = (data) => {
-        // if thumbnail exists
-        if (data.thumbnail) {
-            $(".showcase").css("background-image", "url(" + data.thumbnail + ")");
-        }
-        $("input[name='title']", form).val(data.title);
-        $("textarea[name='content']", form).val(data.content);
-        // animate loader
-        let loadingComplete = anime
-            .timeline({
-                duration: 200,
-            })
-            .add({
-                targets: loader.get(),
-                opacity: 0,
-                easing: "linear",
-                complete: () => loader.hide(),
-            })
-            .add(
-                {
-                    targets: form.get(),
-                    opacity: 1,
-                    easing: "linear",
-                    complete: () => form.toggleClass("disabled"),
-                },
-                0
-            );
-    };
-
-    var open = anime
+export function openEdit() {
+    // open edit overlay
+    var openEdit = anime
         .timeline({
             duration: 200,
         })
@@ -74,18 +28,37 @@ const openEdit = (uuid) => {
                 value: 1,
                 easing: "linear",
             },
-            complete: () => getPost(),
+            complete: () => getPost(loadingComplete(data), uuid), // fetch post when edit overlay has finished animating
         });
-};
+    // once fetched, populate form fields with data
+    const loadingComplete = (data) => {
+        // if thumbnail exists
+        if (data.thumbnail) {
+            $(".showcase").css("background-image", "url(" + data.thumbnail + ")");
+        }
+        $("input[name='title']", form).val(data.title);
+        $("textarea[name='content']", form).val(data.content);
+        // animate loader
+        openEdit
+            .add({
+                targets: loader.get(),
+                opacity: 0,
+                easing: "linear",
+                complete: () => loader.hide(),
+            })
+            .add(
+                {
+                    targets: form.get(),
+                    opacity: 1,
+                    easing: "linear",
+                    complete: () => form.toggleClass("disabled"),
+                },
+                0
+            );
+    };
+}
 
 const closeEdit = () => {
-    const wrapper = $("#overlays");
-    const edit = $("#overlays section.edit");
-    const form = $("#overlays section.edit form.edit");
-    const loader = $("#overlays .loader");
-    const placeholder = $(".showcase svg");
-    const showcase = $(".showcase");
-
     const closeComplete = () => {
         showcase.css("background-image", "");
         $("input[name='title']", form).val("");

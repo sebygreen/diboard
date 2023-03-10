@@ -1,4 +1,4 @@
-export default async function getPosts(callback) {
+export async function getPosts(callback) {
     await fetch("/api/posts")
         .then((response) => {
             if (response.ok) {
@@ -13,6 +13,22 @@ export default async function getPosts(callback) {
         })
         .catch((error) => {
             console.error("ERROR: Failed to get posts...", error);
+            return error;
+        });
+}
+
+export async function getPost(callback, uuid) {
+    await fetch("/edit-post?uuid=" + uuid)
+        .then((response) => {
+            if (response.ok) {
+                console.log(response.text());
+                return response.text();
+            } else {
+                throw new Error("Bad server response. Response: " + response.status);
+            }
+        })
+        .catch((error) => {
+            console.error("Failed to get posts...", error);
             return error;
         });
 }

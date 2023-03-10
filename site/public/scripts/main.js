@@ -1,51 +1,3 @@
-import getPosts from "./fetch.js";
-
-const refreshPosts = () => {
-    const grid = $("section#grid");
-    const loader = $("section#grid .loader");
-
-    getPosts((data) => callback(data));
-
-    const callback = (data) => {
-        let html = data;
-        if ($("section#grid .post")) {
-            console.log("true");
-            console.log($("section#grid .post").get());
-        } else {
-            console.log("false");
-        }
-        grid.append(html);
-        var posts = grid.children(".post");
-        var showPosts = anime
-            .timeline({
-                duration: 100,
-            })
-            .add({
-                targets: loader.get(),
-                opacity: 0,
-                easing: "linear",
-                complete: () => {
-                    loader.hide();
-                    posts.show();
-                },
-            })
-            .add({
-                targets: posts.get(),
-                opacity: {
-                    value: 1,
-                    easing: "linear",
-                },
-                translateY: {
-                    value: 0,
-                    easing: "cubicBezier(0.83, 0, 0.17, 1)",
-                },
-                delay: anime.stagger(50),
-            });
-    };
-};
-
-refreshPosts();
-
 // edit post submit
 $("form.edit").on("submit", (e) => {
     e.preventDefault();
@@ -73,7 +25,7 @@ $("form.edit").on("submit", (e) => {
             if (data.error) {
                 error.text(data.error).show();
             } else {
-                refreshPosts();
+                refreshPost();
                 closeEdit();
             }
         })

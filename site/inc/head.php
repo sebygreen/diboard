@@ -5,9 +5,8 @@
 <meta name="robots" content="follow">
 <!-- styles -->
 <link rel="stylesheet" href="public/styles/styles.css">
-<!-- jquery -->
+<!-- lib -->
 <script defer src="public/scripts/lib/jquery.min.js"></script>
-<!-- main scripts -->
-<script defer type="module" src="public/scripts/main.js"></script>
-<script defer src="public/scripts/ajax.js"></script>
 <script defer src="public/scripts/lib/anime.min.js"></script>
+<!-- scripts -->
+<script defer type="module" src="public/scripts/main.js"></script>
