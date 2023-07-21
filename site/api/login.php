@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($user_found) {
             // user exists, try and sign them in
-            $uuid = (string) $user_found["uuid"];
+            $uuid = (string) $user_found["converted_uuid"];
             $hash = (string) $user_found["password"];
 
             if (password_verify($password, $hash)) {

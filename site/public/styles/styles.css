@@ -4,7 +4,9 @@
 /*local font*/
 @font-face {
     font-family: Satochi;
-    src: url("../fonts/Satoshi.woff2") format("woff2"), url("../fonts/Satoshi.woff") format("woff"), url("../fonts/Satoshi.ttf") format("truetype");
+    src: url("../fonts/Satoshi.woff2") format("woff2"),
+        url("../fonts/Satoshi.woff") format("woff"),
+        url("../fonts/Satoshi.ttf") format("truetype");
     font-weight: 300 900;
     font-display: swap;
     font-style: normal;
@@ -12,7 +14,9 @@
 
 @font-face {
     font-family: Satochi;
-    src: url("../fonts/Satoshi Italic.woff2") format("woff2"), url("../fonts/Satoshi Italic.woff") format("woff"), url("../fonts/Satoshi Italic.ttf") format("truetype");
+    src: url("../fonts/Satoshi Italic.woff2") format("woff2"),
+        url("../fonts/Satoshi Italic.woff") format("woff"),
+        url("../fonts/Satoshi Italic.ttf") format("truetype");
     font-weight: 300 900;
     font-display: swap;
     font-style: italic;
@@ -44,14 +48,17 @@
     --fg: rgba(255, 255, 255, 1);
     --fg-opaque: rgba(255, 255, 255, 0.4);
     --fg-translucent: rgba(255, 255, 255, 0.1);
-    --shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0), 0px 5px 10px 0px rgba(0, 0, 0, 0);
-    --shadow-hover: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.1), 0px 5px 10px 0px rgba(0, 0, 0, 0.1);
+    --shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0),
+        0px 5px 10px 0px rgba(0, 0, 0, 0);
+    --shadow-hover: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.1),
+        0px 5px 10px 0px rgba(0, 0, 0, 0.1);
 }
 
 /*general styles & reset*/
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 body {
@@ -76,62 +83,37 @@ textarea {
     resize: none;
 }
 
-/*loader*/
-.loader {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%);
-    display: flex;
-    gap: 5px;
-}
-
-.loader .ball {
-    background-color: var(--fg);
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    animation: keyframes 1.2s infinite ease-in-out;
-}
-
-.loader .ball:nth-child(2) {
-    animation-delay: 0.1s;
-}
-
-.loader .ball:nth-child(3) {
-    animation-delay: 0.2s;
-}
-
-@keyframes keyframes {
-    0% {
-        scale: 0.2;
-    }
-    33% {
-        scale: 1;
-    }
-    100% {
-        scale: 0.2;
-    }
-}
-
 /*login, register & landing page container*/
-.content-container {
+.wrapper {
+    min-height: 100vh;
+    height: max-content;
+    width: 100%;
+    max-width: 1024px;
+    padding: 30px;
+    display: flex;
+}
+
+/*modals*/
+#modals {
     height: 100lvh;
     width: 100%;
+    position: absolute;
+    overflow-x: hidden;
+    z-index: 1;
     display: flex;
+    background-color: var(--bg-opaque);
 }
 
-/*components*/
 /*button*/
 .button {
     font-size: 18px;
     font-weight: 600;
-    padding: 14px 28px;
+    padding: 10px 20px;
     border-radius: 8px;
     color: var(--fg);
     background-color: var(--button-bg);
     box-shadow: var(--shadow);
-    transition-duration: 200ms;
+    transition: transform 200ms, box-shadow 200ms;
 }
 
 .button:hover,
@@ -139,6 +121,11 @@ textarea {
 .button:focus-visible {
     transform: scale(1.05);
     box-shadow: var(--shadow-hover);
+}
+
+.button.purple {
+    background-color: rgba(82, 41, 123, 1);
+    color: rgba(255, 255, 255, 1);
 }
 
 /*icon button*/
@@ -153,7 +140,7 @@ textarea {
     color: var(--fg);
     background-color: var(--button-bg);
     box-shadow: var(--shadow);
-    transition-duration: 200ms;
+    transition: transform 200ms, box-shadow 200ms;
 }
 
 .icon svg {
@@ -166,6 +153,11 @@ textarea {
 .icon:focus-visible {
     transform: scale(1.05);
     box-shadow: var(--shadow-hover);
+}
+
+/*svg logo*/
+svg.logo {
+    color: var(--fg-translucent);
 }
 
 /*theme toggle*/
@@ -258,43 +250,16 @@ textarea {
     }
 }
 
-#overlays {
-    height: 100lvh;
-    width: 100%;
-    position: absolute;
-    overflow-x: hidden;
-    z-index: 1;
-    display: flex;
-    background-color: var(--bg-opaque);
-}
-
-#overlays section.edit {
-    position: relative;
-    overflow-x: auto;
-    margin: auto;
-    padding: 40px;
-    border-radius: 16px;
-    background-color: var(--bg-secondary);
-}
-
 /* forms */
 form {
-    width: 100%;
-    max-width: 960px;
-    position: relative;
-}
-
-form.disabled {
-    pointer-events: none;
-    opacity: 0.4;
-    cursor: progress;
+    margin: auto;
 }
 
 form .titlebar {
     display: flex;
     align-items: center;
     gap: 15px;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
 }
 
 form .titlebar h2 {
@@ -303,16 +268,15 @@ form .titlebar h2 {
     color: var(--fg);
 }
 
-form .titlebar img {
+form .titlebar svg.logo {
     height: 40px;
-    opacity: 0.2;
     margin-left: auto;
 }
 
 form .inputs {
     display: grid;
-    grid-template-columns: 1fr 1fr;
     gap: 20px;
+    margin-bottom: 30px;
 }
 
 form .inputs .right {
@@ -331,8 +295,8 @@ form .inputs .left {
 form .input {
     position: relative;
     display: grid;
-    grid-template-columns: repeat(min-content);
-    gap: 10px;
+    gap: 5px;
+    min-width: 300px;
 }
 
 /*HACK: hidden file input handled only via javascript*/
@@ -356,8 +320,8 @@ form .input .grid .dropzone {
     border-radius: 8px;
     background-color: var(--button-bg);
     box-shadow: var(--shadow);
-    transition-duration: 200ms;
     cursor: pointer;
+    transition: transform 200ms, box-shadow 200ms;
 }
 
 form .input .grid .dropzone.active,
@@ -371,7 +335,7 @@ form .input .grid .dropzone:focus-visible {
 form .input .grid .dropzone svg {
     height: 40px;
     color: var(--fg-translucent);
-    transition-duration: 200ms;
+    transition-duration: color 200ms;
 }
 
 form .input .grid .dropzone * {
@@ -415,16 +379,15 @@ form .input .grid .dropzone .details p {
 }
 
 form .input .grid .showcase {
-    margin: 2px;
     color: rgba(255, 255, 255, 1);
     border-radius: 8px;
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
+    background-color: var(--fg-translucent);
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 0px 0px 0px 2px var(--fg-translucent);
     height: 130px;
     width: 130px;
 }
@@ -432,7 +395,7 @@ form .input .grid .showcase {
 form .input .grid .showcase svg {
     height: 52px;
     width: auto;
-    color: var(--fg-translucent);
+    color: white;
 }
 
 form label {
@@ -454,8 +417,8 @@ form .input textarea {
     padding: 14px 18px;
     border-radius: 8px;
     box-shadow: var(--shadow);
-    transition-duration: 200ms;
     white-space: pre-wrap;
+    transition: transform 200ms, box-shadow 200ms;
 }
 
 form .input input::placeholder,
@@ -482,46 +445,40 @@ form .error {
 
 /*index page*/
 #landing {
-    text-align: center;
     margin: auto;
-    padding: 40px;
+    display: grid;
+    gap: 30px;
+    text-align: center;
 }
 
-#landing img {
+#landing svg.logo {
     height: 100px;
-    opacity: 0.1;
-    margin-bottom: 40px;
+    width: auto;
+    margin: 0 auto;
 }
 
 #landing h1 {
     font-size: 32px;
-    font-weight: 200;
+    font-weight: normal;
     color: var(--fg-opaque);
-    margin-bottom: 5px;
 }
 
 #landing h1 span {
     opacity: 1;
-    font-weight: 600;
+    font-weight: bold;
     color: var(--fg);
 }
 
 #landing h3 {
     font-size: 16px;
-    font-weight: 600;
-    margin-bottom: 40px;
+    font-weight: bold;
     color: var(--fg);
 }
 
 #landing #buttons {
     display: flex;
     justify-content: center;
-    gap: 20px;
-}
-
-#landing #buttons #login {
-    background-color: rgba(82, 41, 123, 1);
-    color: rgba(255, 255, 255, 1);
+    gap: 15px;
 }
 
 /* dashboard */
