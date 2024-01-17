@@ -1,8 +1,4 @@
 .DS_Store
-.nova/
-
-thumbnails/
-avatars/
-
+storage/
 vendor/
 composer.lock

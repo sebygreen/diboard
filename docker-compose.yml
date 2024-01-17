@@ -1,40 +1,56 @@
-networks:
-    internal:
-        driver: bridge
+version: "3.9"
 services:
-    nginx:
-        image: nginx:latest
-        networks:
-            - internal
-        ports:
-            - 80:80
-        links:
-            - php-fpm
-        volumes:
-            - ./site:/var/www/html
-            - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
-        depends_on:
-            - php-fpm
-    php-fpm:
-        build:
-            dockerfile: ./docker/php-fpm/Dockerfile
-        networks:
-            - internal
-        volumes:
-            - ./site:/var/www/html
-            - ./docker/php-fpm/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini:ro
-        depends_on:
-            - mariadb
     mariadb:
+        container_name: mariadb
         image: mariadb:latest
-        restart: always
-        networks:
-            - internal
+        restart: no
         ports:
-            - 3306:3306
+            - "3306:3306"
         environment:
-            MARIADB_ROOT_PASSWORD: root
-            MARIADB_MYSQL_LOCALHOST_USER: yes
+            MYSQL_ROOT_PASSWORD: 'root'
+            MYSQL_USER: 'diboard'
+            MYSQL_PASSWORD: 'admin'
             MARIADB_DATABASE: diboard_db
         volumes:
             - ./docker/mariadb/diboard_db.sql:/docker-entrypoint-initdb.d/diboard_db.sql:ro
+            - mariadb:/var/lib/mysql
+        networks:
+            - internal
+        healthcheck:
+            test: [ "CMD", "/usr/local/bin/healthcheck.sh", "--connect" ]
+            start_period: 5s
+            timeout: 3s
+            interval: 5s
+            retries: 5
+    php:
+        container_name: php
+        build:
+            context: ./docker/php
+            dockerfile: Dockerfile
+        restart: no
+        depends_on:
+            mariadb:
+                condition: service_healthy
+        volumes:
+            - ./src:/var/www/html
+            - ./docker/php/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini:ro
+        networks:
+            - internal
+    nginx:
+        container_name: nginx
+        image: nginx:latest
+        restart: no
+        depends_on:
+            php:
+                condition: service_started
+        ports:
+            - "80:80"
+        volumes:
+            - ./src:/var/www/html
+            - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+        networks:
+            - internal
+networks:
+    internal: { }
+volumes:
+    mariadb: { }
